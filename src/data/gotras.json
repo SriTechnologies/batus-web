@@ -1,0 +1,325 @@
+{
+    "pravaktas": [
+        {
+            "name": "Bhrigu / Bhargava",
+            "ganas": [
+                {
+                    "name": "Jamadagni",
+                    "rishis": [
+                        "Jamadagni",
+                        "Vatsa",
+                        "Chyavana",
+                        "Mandavya",
+                        "Mandukeya",
+                        "Manduka",
+                        "Vitashayana",
+                        "Vairohitya",
+                        "Valmiki",
+                        "Markandeya",
+                        "Panini",
+                        "Rishtishena",
+                        "Arshtishena",
+                        "Anupavi",
+                        "Druda",
+                        "Vata",
+                        "Prachinayogya",
+                        "Baida"
+                    ]
+                },
+                {
+                    "name": "Vitahavya",
+                    "rishis": [
+                        "Vitahavya",
+                        "Yaska",
+                        "Vadhula",
+                        "Mauna",
+                        "Maukasa",
+                        "Sharkarakshi",
+                        "Sharshti",
+                        "Shalankayana",
+                        "Daivantyayana",
+                        "Jabala",
+                        "Savarni"
+                    ]
+                },
+                {
+                    "name": "Grutsamada",
+                    "rishis": [
+                        "Grutsamada",
+                        "Shaunaka"
+                    ]
+                },
+                {
+                    "name": "Vadhrashwa",
+                    "rishis": [
+                        "Vadhrashwa",
+                        "Mitrayu"
+                    ]
+                },
+                {
+                    "name": "Vainya",
+                    "rishis": [
+                        "Vainya",
+                        "Partha"
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "Angirasa",
+            "ganas": [
+                {
+                    "name": "Gautama",
+                    "rishis": [
+                        "Gautama",
+                        "Ayasya",
+                        "Ouchathya",
+                        "Kakshivanta",
+                        "Oushija",
+                        "Bruhaduktha",
+                        "Vamadeva"
+                    ]
+                },
+                {
+                    "name": "Bharadhwaja",
+                    "rishis": [
+                        "Bharadhwaja",
+                        "Kusha",
+                        "Agniveshya",
+                        "Urja",
+                        "Yama",
+                        "Kata",
+                        "Shaishira",
+                        "Ksheerashrunga",
+                        "Vandana",
+                        "Bruhaspati",
+                        "Sarvastamba",
+                        "Kapi",
+                        "Matavachasa",
+                        "Gargya",
+                        "Shainaka"
+                    ]
+                },
+                {
+                    "name": "Kapi",
+                    "rishis": [
+                        "Tarasvanta",
+                        "Shalaka",
+                        "Bindu",
+                        "Shalka",
+                        "Patanjali",
+                        "Bhuyasi",
+                        "Danuki",
+                        "Jalandhara"
+                    ]
+                },
+                {
+                    "name": "Kanva",
+                    "rishis": [
+                        "Ajamidha",
+                        "Ghora",
+                        "Kanva"
+                    ]
+                },
+                {
+                    "name": "Mudgala",
+                    "rishis": [
+                        "Mudgala",
+                        "Trivedi",
+                        "Takshya",
+                        "Bharmashyva",
+                        "Moudgalya"
+                    ]
+                },
+                {
+                    "name": "Virupa",
+                    "rishis": [
+                        "Virupa",
+                        "Prushadashva",
+                        "Paarshadashvi",
+                        "Rathithara",
+                        "Aangushta",
+                        "Ashtadamshtra"
+                    ]
+                },
+                {
+                    "name": "Harita",
+                    "rishis": [
+                        "Harita",
+                        "Ambarisha",
+                        "Mandhata",
+                        "Yuvanashva",
+                        "Kautsa",
+                        "Painga",
+                        "Shankha",
+                        "Dabhra",
+                        "Hemagava",
+                        "Kaumara"
+                    ]
+                },
+                {
+                    "name": "Vishnuvruddha",
+                    "rishis": [
+                        "Vishnuvruddha",
+                        "Shata",
+                        "Mata",
+                        "Mapana",
+                        "Dabhrana",
+                        "Jaalpa",
+                        "Oupagavi",
+                        "Vidabhrana",
+                        "Badarayana",
+                        "Nitundi",
+                        "Kratu",
+                        "Satyaki",
+                        "Taluki"
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "Atri",
+            "ganas": [
+                {
+                    "name": "Atri",
+                    "rishis": [
+                        "Atri",
+                        "Prathama",
+                        "Svasti",
+                        "Krishna",
+                        "Chandra",
+                        "Pada",
+                        "Aadima",
+                        "Atreya",
+                        "Vamarathya",
+                        "Gavishtira",
+                        "Rasa",
+                        "Paurvatithya",
+                        "Tithi",
+                        "Bahutaka",
+                        "Dhananjaya",
+                        "Sumangala",
+                        "Bijavapi",
+                        "Saumangalya"
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "Kashyapa",
+            "ganas": [
+                {
+                    "name": "Kashyapa",
+                    "rishis": [
+                        "Kashyapa",
+                        "Vatsara",
+                        "Naidhruva",
+                        "Sankruti",
+                        "Putimasha",
+                        "Raibhya",
+                        "Shandilya",
+                        "Shandila",
+                        "Devala",
+                        "Asita"
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "Vasishta",
+            "ganas": [
+                {
+                    "name": "Vasishta",
+                    "rishis": [
+                        "Vasishta",
+                        "Vaasishta",
+                        "Upamanyu",
+                        "Gauravita",
+                        "Putimasha",
+                        "Dvitiya Upamanyu",
+                        "Aabharadvasu",
+                        "Indrapramada",
+                        "Parashara",
+                        "Paarasharya",
+                        "Vyasa",
+                        "Shakti",
+                        "Kundina",
+                        "Tandi",
+                        "Sankruti",
+                        "Sankhyayana",
+                        "Jatukarnya",
+                        "Dvitiya Kaundinya",
+                        "Maitravaruni"
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "Agastya",
+            "ganas": [
+                {
+                    "name": "Agastya",
+                    "rishis": [
+                        "Aagastya",
+                        "Daardyachyuta",
+                        "Idhmavaha",
+                        "Somavaha",
+                        "Saravaha",
+                        "Yajnavaha",
+                        "Himodaka",
+                        "Panika"
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "Vishwamitra",
+            "ganas": [
+                {
+                    "name": "Vishwamitra",
+                    "rishis": [
+                        "Vishwamitra",
+                        "Devarata",
+                        "Manu",
+                        "Shraumata",
+                        "Jaulaki",
+                        "Valuki",
+                        "Chakita",
+                        "Ulooka",
+                        "Yajnavalkya",
+                        "Narada",
+                        "Bruhadagni",
+                        "Kala",
+                        "Babha",
+                        "Shabali",
+                        "Bahu",
+                        "Rohina",
+                        "Shalankayana",
+                        "Savarni",
+                        "Kamakayana",
+                        "Purana",
+                        "Shalavata",
+                        "Agnideva",
+                        "Damana",
+                        "Shaunaka",
+                        "Ashtaka",
+                        "Aja",
+                        "Madhucchandasa",
+                        "Devashrava",
+                        "Dhananjaya",
+                        "Shunga",
+                        "Kata",
+                        "Shaishira",
+                        "Varidhapa",
+                        "Aghamarshana",
+                        "Sunu",
+                        "Pana",
+                        "Dhoomra",
+                        "Jatara",
+                        "Ekahavyaka"
+                    ]
+                }
+            ]
+        }
+    ]
+}
