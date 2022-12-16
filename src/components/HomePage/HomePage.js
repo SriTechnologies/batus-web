@@ -1,6 +1,7 @@
+import React from 'react';
 import axios from "axios";
 import { useEffect, useState } from "react";
-import useUser from "../hooks/useUser";
+import useUser from "../../hooks/useUser";
 
 
 const HomePage = () => {
