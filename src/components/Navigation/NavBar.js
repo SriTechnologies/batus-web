@@ -3,6 +3,7 @@ import * as React from 'react';
 import Button from '@mui/material/Button';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
+import "./NavBar.css"
 
 const NavBar = () => {
 	const [anchorEl, setAnchorEl] = React.useState(null);
@@ -54,32 +55,24 @@ const NavBar = () => {
 					<Link to="/">Home</Link>
 				</li>
 				<li>
-				{/* <Dropdown
-					open={open}
-					trigger={<button onClick={handleOpen}>About Us</button>}
-					menu={[
-						<button onClick={handleAboutBAT}>About BAT</button>,
-						<button onClick={handleBATMission}>BAT Mission</button>,
-						<button onClick={handleBATByLaws}>BAT By-Laws</button>
-					]}
-				/> */}
 					<div>
 						<Button
-							id="basic-button"
-							aria-controls={open ? 'basic-menu' : undefined}
+							id="about-button"
+							aria-controls={open ? 'about-menu' : undefined}
 							aria-haspopup="true"
 							aria-expanded={open ? 'true' : undefined}
 							onClick={handleClick}
+							color='inherit'
 						>
 							About Us
 						</Button>
 						<Menu
-							id="basic-menu"
+							id="about-menu"
 							anchorEl={anchorEl}
 							open={open}
 							onClose={handleClose}
 							MenuListProps={{
-								'aria-labelledby': 'basic-button',
+								'aria-labelledby': 'about-button',
 							}}
 						>
 							<MenuItem onClick={handleClose}>About BAT</MenuItem>

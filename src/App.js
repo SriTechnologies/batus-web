@@ -2,6 +2,7 @@ import React from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import AppStyles from './App.css';
 import AppHeaderBar from './components/Navigation/AppHeaderBar';
+import NavBar from './components/Navigation/NavBar';
 import HomePage from './components/HomePage/HomePage';
 import AboutUs from './components/AboutUs/AboutUs';
 import Committee from './components/Committee/Committee';
@@ -14,6 +15,7 @@ import LoginPage from './components/Login/Login';
 import CreateAccountPage from './components/Membership/CreateAccount';
 import Header from './components/Header/Header';
 import Welcome from './pages/Welcome';
+import CreateAccount from './components/Membership/CreateAccount';
 
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
@@ -45,21 +47,23 @@ class App extends Component {
 	render() {
 		return (
 			<div className={AppStyles.App}>
-				<Header />
-				<AppHeaderBar />
 				<BrowserRouter>
-					<Routes>
-						<Route path="/" element={<Welcome />} />
-						<Route path="/about" element={<AboutUs />} />
-						<Route path="/committee" element={<Committee />} />
-						<Route path="/events" element={<Events />} />
-						<Route path="/membership" element={<Membership />} />
-						<Route path="/volunteer" element={<Volunteer />} />
-						<Route path="/contactus" element={<ContactUs />} />
-						<Route path="/login" element={<LoginPage />} />
-						<Route path="/createaccount" element={<CreateAccountPage />} />
-						<Route path="*" element={<ErrorPage />} />
-					</Routes>
+					<Header />
+					<NavBar />
+					<div class="container">
+						<Routes>
+							<Route path="/" element={<CreateAccount />} />
+							<Route path="/about" element={<AboutUs />} />
+							<Route path="/committee" element={<Committee />} />
+							<Route path="/events" element={<Events />} />
+							<Route path="/membership" element={<Membership />} />
+							<Route path="/volunteer" element={<Volunteer />} />
+							<Route path="/contactus" element={<ContactUs />} />
+							<Route path="/login" element={<LoginPage />} />
+							<Route path="/createaccount" element={<CreateAccountPage />} />
+							<Route path="*" element={<ErrorPage />} />
+						</Routes>
+					</div>
 				</BrowserRouter>
 			</div>
 		);

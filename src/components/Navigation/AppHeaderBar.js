@@ -102,42 +102,6 @@ function AppHeaderBar() {
 		setAnchorElMenu(null);
 	};
 
-	const SubMenu = props => {
-		// const [anchorEl, setAnchorEl] = React.useState(props.anchorEl);
-		// const open = Boolean(anchorEl);
-
-		return (
-			<Menu
-				// elevation={0}
-				// sx={{ mt: '20px' }}
-				id={props.id}
-				// anchorEl={props.anchorEl}
-				// anchorOrigin={{
-				// 	vertical: 'bottom',
-				// 	horizontal: 'center',
-				// }}
-				keepMounted
-				// transformOrigin={{
-				// 	vertical: 'bottom',
-				// 	horizontal: 'center',
-				// }}
-				open={Boolean(props.anchorEl)}
-				// autoFocusItem={props.af}
-				// onClose={props.close}
-			>
-				{props.content.map((item) => (
-					<MenuItem
-						id={item.title}
-						key={item.title}
-						onClick={props.close}
-					>
-						{item.title}
-					</MenuItem>
-				))}
-			</Menu>
-		);
-	}
-
 	return (
 		<AppBar position="relative">
 			<Container maxWidth="xl">
@@ -256,46 +220,6 @@ function AppHeaderBar() {
 									)}
 								</Popper>
 							</Box>
-
-							// <MenuList variant='menu' sx={{ flexGrow: 0, display: { xs: 'none', md: 'flex' } }}>
-							// 	{pages.map((page, itemIndex) => (
-							// 	))}
-							// </MenuList>
-							// <Box>
-							// 	<Button
-							// 		id={`menubutton-${itemIndex}`}
-							// 		color='inherit'
-							// 		aria-controls={`menu-${itemIndex}`}
-							// 		aria-haspopup="true"
-							// 		onClick={handleOpenSubMenu}
-							// 	>
-							// 		{page.title}
-							// 	</Button>
-							// 	<Menu
-							// 		id={`menu-${itemIndex}`}
-							// 		aria-labelledby={`menubutton-${itemIndex}`}
-							// 		aria-controls={`menuitem-${itemIndex}`}
-							// 		anchorEl={anchorElMenu}
-							// 		keepMounted
-							// 		open={Boolean(anchorElMenu)}
-							// 		onClose={handleCloseSubMenu}
-							// 		anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
-							// 		transformOrigin={{ vertical: 'top', horizontal: 'center' }}
-							// 	>
-							// 		<MenuItem
-							// 			key={page.title}
-							// 			id={`menuitem-${itemIndex}`}
-							// 			onClick={(e) => {
-							// 				console.log('Submenu clicked index: ', itemIndex);
-							// 				handleCloseSubMenu(e);
-							// 			}}
-							// 			aria-controls={`submenu-${itemIndex}`}
-							// 		>
-							// 			{page.title}
-							// 			<SubMenu id={`submenu-${itemIndex}`} anchorEl={anchorElMenu} content={page.submenu} />
-							// 		</MenuItem>
-							// 	</Menu>
-							// </Box>
 						))}
 					</Box>
 				</Toolbar>
