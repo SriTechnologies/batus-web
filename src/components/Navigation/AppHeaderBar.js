@@ -8,83 +8,54 @@ import Menu from '@mui/material/Menu';
 import MenuIcon from '@mui/icons-material/Menu';
 import Container from '@mui/material/Container';
 import MenuItem from '@mui/material/MenuItem';
-import MenuList from '@mui/material/MenuList';
-import Button from '@mui/material/Button';
-import ClickAwayListener from '@mui/material/ClickAwayListener';
-import Grow from '@mui/material/Grow';
-import Paper from '@mui/material/Paper';
-import Popper from '@mui/material/Popper';
-import Stack from '@mui/material/Stack';
+import MenuUsingPopupState from './MenuPopupState';
 
 const pages = [
 	{
 		title: 'Home', link: '/', submenu: []
 	},
 	{
-		title: 'Committee', link: '/Committee', submenu: [
-			{ title: 'Board Members', link: '/' },
-			{ title: 'Core Committee', link: '/' }
+		title: 'Committee', link: '/committee', submenu: [
+			{ title: 'Board Members', link: '/boardmembers' },
+			{ title: 'Core Committee', link: '/corecommittee' }
 		]
 	},
 	{
-		title: 'Contact Us', link: '/ContactUs', submenu: [
-			{ title: 'Email', link: '/' },
-			{ title: 'Contact Details', link: '/' }
+		title: 'Events', link: '/events', submenu: [
+			{ title: 'Annual Events', link: '/annualevents' },
+			{ title: 'Monthly Events', link: '/monthlyevents' }
 		]
 	},
 	{
-		title: 'Events', link: '/Events', submenu: [
-			{ title: 'Annual Events', link: '/' },
-			{ title: 'Monthly Events', link: '/' }
+		title: 'Membership', link: '/membership', submenu: [
+			{ title: 'Become a Member', link: '/registration' },
+			{ title: 'Membership Benefits', link: '/Membership' },
 		]
 	},
 	{
-		title: 'Membership', link: '/Membership', submenu: [
-			{ title: 'Become a Member', link: '/' },
-			{ title: 'Membership Benefits', link: '/' },
+		title: 'Volunteer', link: '/volunteer', submenu: [
+			{ title: 'Register as Volunteer', link: '/volunteer' },
+			{ title: 'Volunteer Services', link: '/volunteer' }
 		]
 	},
 	{
-		title: 'Volunteer', link: '/Volunteer', submenu: [
-			{ title: 'Register as Volunteer', link: '/' },
-			{ title: 'Volunteer Services', link: '/' }
+		title: 'Contact Us', link: '/contactus', submenu: [
+			{ title: 'Email', link: '/contactus' },
+			{ title: 'Contact Details', link: '/contactus' }
+		]
+	},
+	{
+		title: 'About BAT', link: '/aboutbat', submenu: [
+			{ title: 'About Bat', link: '/aboutbat' },
+			{ title: 'BAT By-Laws', link: '/batbylaws' },
+			{ title: 'BAT Mission', link: '/batmission' }
 		]
 	},
 ];
 
 function AppHeaderBar() {
+
 	const [anchorElNav, setAnchorElNav] = React.useState(null);
-	const [anchorElMenu, setAnchorElMenu] = React.useState(null);
-	const [open, setOpen] = React.useState(false);
-	const anchorRef = React.useRef(null);
-	const anchorRefs = React.useRef([]);
-
-	const handleToggle = (event, index, len) => {
-		console.log("Menu index: ", index);
-		if (len > 0) {
-			setOpen((prevOpen) => !prevOpen);
-			if (event.currentTarget !== anchorRef) {
-				anchorRef.current = event.currentTarget;
-			}
-		}
-	};
-
-	const handleClose = (event) => {
-		if (anchorRef.current && anchorRef.current.contains(event.target)) {
-			return;
-		}
-		anchorRef.current = null;
-		setOpen(false);
-	};
-
-	function handleListKeyDown(event) {
-		if (event.key === 'Tab') {
-			event.preventDefault();
-			setOpen(false);
-		} else if (event.key === 'Escape') {
-			setOpen(false);
-		}
-	}
 
 	const handleOpenNavMenu = (event) => {
 		setAnchorElNav(event.currentTarget);
@@ -92,14 +63,6 @@ function AppHeaderBar() {
 
 	const handleCloseNavMenu = () => {
 		setAnchorElNav(null);
-	};
-
-	const handleOpenSubMenu = (event) => {
-		setAnchorElMenu(event.currentTarget);
-	};
-
-	const handleCloseSubMenu = () => {
-		setAnchorElMenu(null);
 	};
 
 	return (
@@ -163,63 +126,7 @@ function AppHeaderBar() {
 
 					<Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
 						{pages.map((page, itemIndex) => (
-							<Box>
-								<Button
-									ref={(el) => (anchorRefs.current.push(el))}
-									key={page.title}
-									id={`menubutton-${itemIndex}`}
-									aria-label={page.title}
-									aria-controls={open ? `submenu-${itemIndex}` : undefined}
-									aria-expanded={open ? 'true' : undefined}
-									aria-haspopup="true"
-									onClick={(e) => { handleToggle(e, itemIndex, page.submenu.length) }}
-									color='inherit'
-								>
-									{page.title}
-								</Button>
-								<Popper
-									open={open}
-									anchorEl={anchorRef.current}
-									role={undefined}
-									placement="bottom-start"
-									transition
-									disablePortal
-									// onKeyDown={handleListKeyDown}
-									// onClose={handleClose}
-								>
-									{({ TransitionProps, placement }) => (
-										<Grow
-											{...TransitionProps}
-											style={{
-												transformOrigin:
-													placement === 'bottom-start' ? 'left top' : 'left bottom',
-											}}
-										>
-											<Paper>
-												<ClickAwayListener onClickAway={handleClose}>
-													<MenuList
-														id={`submenu-${itemIndex}`}
-														key={`submenu-${itemIndex}`}
-														aria-labelledby={`menubutton-${itemIndex}`}
-														autoFocusItem={open}
-														onKeyDown={handleListKeyDown}
-														onClose={handleClose}
-													>
-														{page.submenu?.map((subitem, subitemIndex) => (
-															<MenuItem
-																key={subitem.title}
-																onClick={handleClose}>
-																{subitem.title}
-															</MenuItem>
-														))}
-													</MenuList>
-													{/* <SubMenu id={itemIndex} af={`${open}`} close={handleClose} content={page.submenu} /> */}
-												</ClickAwayListener>
-											</Paper>
-										</Grow>
-									)}
-								</Popper>
-							</Box>
+							<MenuUsingPopupState item={page} index={itemIndex} />
 						))}
 					</Box>
 				</Toolbar>
@@ -227,4 +134,5 @@ function AppHeaderBar() {
 		</AppBar>
 	);
 }
+
 export default AppHeaderBar;

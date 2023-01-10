@@ -2,20 +2,24 @@ import React from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import AppStyles from './App.css';
 import AppHeaderBar from './components/Navigation/AppHeaderBar';
-import NavBar from './components/Navigation/NavBar';
 import HomePage from './components/HomePage/HomePage';
-import AboutUs from './components/AboutUs/AboutUs';
+import AboutBat from './components/AboutUs/AboutBat';
+import BatByLaws from './components/AboutUs/BatByLaws';
+import BatMission from './components/AboutUs/BatMission';
 import Committee from './components/Committee/Committee';
+import CoreCommittee from './components/Committee/CoreCommittee';
+import BoardMembers from './components/Committee/BoardMembers';
 import Events from './components/Events/Events';
+import AnnualEvents from './components/Events/AnnualEvents';
+import MonthlyEvents from './components/Events/MonthlyEvents';
 import Membership from './components/Membership/Membership';
+import CreateAccount from './components/Membership/CreateAccount';
+import Registration from './components/Membership/Registration';
 import Volunteer from './components/Volunteer/Volunteer';
 import ContactUs from './components/ContactUs/ContactUs';
 import ErrorPage from './components/Error/Error';
 import LoginPage from './components/Login/Login';
-import CreateAccountPage from './components/Membership/CreateAccount';
 import Header from './components/Header/Header';
-import Welcome from './pages/Welcome';
-import CreateAccount from './components/Membership/CreateAccount';
 
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
@@ -49,18 +53,25 @@ class App extends Component {
 			<div className={AppStyles.App}>
 				<BrowserRouter>
 					<Header />
-					<NavBar />
+					<AppHeaderBar />
 					<div class="container">
 						<Routes>
-							<Route path="/" element={<CreateAccount />} />
-							<Route path="/about" element={<AboutUs />} />
+							<Route path="/" element={<HomePage />} />
+							<Route path="/aboutbat" element={<AboutBat />} />
+							<Route path="/batbylaws" element={<BatByLaws />} />
+							<Route path="/batmission" element={<BatMission />} />
 							<Route path="/committee" element={<Committee />} />
+							<Route path="/corecommittee" element={<CoreCommittee />} />
+							<Route path="/boardmembers" element={<BoardMembers />} />
 							<Route path="/events" element={<Events />} />
+							<Route path="/annualevents" element={<AnnualEvents />} />
+							<Route path="/monthlyevents" element={<MonthlyEvents />} />
 							<Route path="/membership" element={<Membership />} />
+							<Route path="/registration" element={<Registration />} />
 							<Route path="/volunteer" element={<Volunteer />} />
 							<Route path="/contactus" element={<ContactUs />} />
 							<Route path="/login" element={<LoginPage />} />
-							<Route path="/createaccount" element={<CreateAccountPage />} />
+							<Route path="/createaccount" element={<CreateAccount />} />
 							<Route path="*" element={<ErrorPage />} />
 						</Routes>
 					</div>

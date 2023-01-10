@@ -65,9 +65,9 @@ export default function HorizontalNonLinearStepper() {
               Registration Form
             </Typography>
             <Typography variant="subtitle2" align="center" sx={{ mt: 2 }}>
-              1) Family registration includes spouse and unmarried dependents only.
-			  2) Students can register as Volunteers
-			  3) Please read and agree to the Membership Terms and Conditions.
+              1) Family registration includes spouse and unmarried dependents only.<br/>
+			  2) Students can register as Volunteers<br/>
+			  3) Please read and agree to the Membership Terms and Conditions.<br/>
             </Typography>
           </Box>
       <Stepper nonLinear activeStep={activeStep}>
