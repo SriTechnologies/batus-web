@@ -16,9 +16,9 @@ html {
 }
 
 body {
-	color: white;
-	background-color: #282c34;
-	overflow: hidden;
+	color: black;
+	/* background-color: #282c34; */
+	overflow: auto;
 }
 
 section {

@@ -44,59 +44,60 @@ export default function BoxedMenu(){
 		setAnchorElMenu(null);
 	};
 	
-	<Box>
-		<Button
-			ref={(el) => (anchorRefs.current.push(el))}
-			id={itemIndex}
-			// aria-label={page.title}
-			aria-controls={`menu${itemIndex}`}
-			aria-expanded={open ? page.submenu.len > 0 : undefined}
-			aria-haspopup={page.submenu.len > 0}
-			onClick={(e) => { openMenu(e, itemIndex, page.submenu.length) }}
-			color='inherit'
-		>
-			{page.title}
-		</Button>
-		<Popper
-			open={open}
-			anchorEl={anchorRef.current}
-			role={undefined}
-			placement="bottom-start"
-			transition
-			disablePortal
-			onKeyDown={handleListKeyDown}
-			onClose={closeMenu}
-		>
-			{({ TransitionProps, placement }) => (
-				<Grow
-					{...TransitionProps}
-					style={{
-						transformOrigin:
-							placement === 'bottom-start' ? 'left top' : 'left bottom',
-					}}
-				>
-					<Paper>
-						<ClickAwayListener onClickAway={closeMenu}>
-							<MenuList
-								autoFocusItem={open}
-								id={`menu${itemIndex}`}
-								aria-labelledby={itemIndex}
-								onClose={handleCloseSubMenu}
-								onKeyDown={handleListKeyDown}
-							>
-								{page.submenu?.map((subitem, subitemIndex) => (
-									<MenuItem
-										onClick={handleOpenSubMenu}>
-										{subitem.title}
-									</MenuItem>
-								))}
-							</MenuList>
-							{/* <SubMenu id={itemIndex} af={`${open}`} close={closeMenu} content={page.submenu} /> */}
-						</ClickAwayListener>
-					</Paper>
-				</Grow>
-			)}
-		</Popper>
-	</Box>
-
+	return (
+		<Box>
+			<Button
+				ref={(el) => (anchorRefs.current.push(el))}
+				id={itemIndex}
+				// aria-label={page.title}
+				aria-controls={`menu${itemIndex}`}
+				aria-expanded={open ? page.submenu.len > 0 : undefined}
+				aria-haspopup={page.submenu.len > 0}
+				onClick={(e) => { openMenu(e, itemIndex, page.submenu.length) }}
+				color='inherit'
+			>
+				{page.title}
+			</Button>
+			<Popper
+				open={open}
+				anchorEl={anchorRef.current}
+				role={undefined}
+				placement="bottom-start"
+				transition
+				disablePortal
+				onKeyDown={handleListKeyDown}
+				onClose={closeMenu}
+			>
+				{({ TransitionProps, placement }) => (
+					<Grow
+						{...TransitionProps}
+						style={{
+							transformOrigin:
+								placement === 'bottom-start' ? 'left top' : 'left bottom',
+						}}
+					>
+						<Paper>
+							<ClickAwayListener onClickAway={closeMenu}>
+								<MenuList
+									autoFocusItem={open}
+									id={`menu${itemIndex}`}
+									aria-labelledby={itemIndex}
+									onClose={handleCloseSubMenu}
+									onKeyDown={handleListKeyDown}
+								>
+									{page.submenu?.map((subitem, subitemIndex) => (
+										<MenuItem
+											onClick={handleOpenSubMenu}>
+											{subitem.title}
+										</MenuItem>
+									))}
+								</MenuList>
+								{/* <SubMenu id={itemIndex} af={`${open}`} close={closeMenu} content={page.submenu} /> */}
+							</ClickAwayListener>
+						</Paper>
+					</Grow>
+				)}
+			</Popper>
+		</Box>
+	);
 }

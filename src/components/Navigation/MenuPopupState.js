@@ -11,7 +11,7 @@ export default function MenuPopupState({item, index}) {
 	  <PopupState variant="popover" popupId={`${index}`} >
 		{(popupState) => (
 		  <React.Fragment>
-			<Button variant="contained" {...bindTrigger(popupState)} sx={{ mx: "1%"}} >
+			<Button variant="contained" {...bindTrigger(popupState)} sx={{ mx: "1%"}} component={Link} to={item.link}>
 				{item.title}
 			</Button>
 			{item.submenu?.length > 0 &&
