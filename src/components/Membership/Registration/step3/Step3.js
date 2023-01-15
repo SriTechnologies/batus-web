@@ -16,28 +16,39 @@ const Step3 = () => {
 	const [ganaIndex, setGanaIndex] = React.useState(-1);
 	const [rishis, setRishis] = React.useState([]);
 
-	const handlePravaktaChange = (/*index,*/ event) => {
+	const handlePravaktaChange = (event, index) => {
 		// const updatedPravaktas = [...pravaktas];
 		// updatedPravaktas[index].name = event.target.value;
 		// setPravaktas(updatedPravaktas);
 		console.log("Selected Pravakta: " + event.target.value);
 		setPravaktaIndex(event.target.value);
 		setPravaktaSelected(true);
+		// add the selected Pravakta to the Rishi list
+		const updatedRishis = [...rishis];
+		updatedRishis[index] = pravaktas[event.target.value].name;
+		setRishis(updatedRishis);
+		console.log("New Rishis: " + updatedRishis);
 	};
 
-	const handleGanaChange = (/*pIndex, gIndex,*/ event) => {
+	const handleGanaChange = (event, index) => {
 		// const updatedPravaktas = [...pravaktas];
 		// updatedPravaktas[pIndex].ganas[gIndex].name = event.target.value;
 		// setPravaktas(updatedPravaktas);
 		console.log("Selected Gana: " + event.target.value);
 		setGanaIndex(event.target.value);
 		setGanaSelected(true);
+		// add the selected Gana to the Rishi list
+		const updatedRishis = [...rishis];
+		updatedRishis[index] = pravaktas[pravaktaIndex].ganas[event.target.value].name;
+		setRishis(updatedRishis);
+		console.log("New Rishis: " + updatedRishis);
 	};
 
 	const handleRishiChange = (event, index) => {
 		const updatedRishis = [...rishis];
-		updatedRishis[index] = event.target.value;
+		updatedRishis[index+2] = event.target.value;
 		setRishis(updatedRishis);
+		console.log("New Rishis: " + updatedRishis);
 	}
 
 	const handleRishiCountChange = (event) => {
@@ -52,6 +63,8 @@ const Step3 = () => {
 			setPravaktaIndex(-1);
 			setPravaktaSelected(false);
 			setRishis([]);
+		} else {
+			// if 
 		}
 	};
 
@@ -60,16 +73,18 @@ const Step3 = () => {
 
 		for (let index = 0; index < rishiCount-2; index++) {
 			rishiLists.push(
-				<FormControl sx={{ m: 1, width: 300 }} size="small">
+				<FormControl sx={{ m: 1, width: 300 }} size="small" key={`rishi-form-${index}`}>
 					<InputLabel id={`rishi-label-${index}`}>Rishi</InputLabel>
 					<Select
 						labelId={`rishi-label-${index}`}
 						id={`rishi-list-${index}`}
+						key={`rishi-list-${index}`}
 						input={<OutlinedInput label="Rishi" />}
 						displayEmpty
 						onChange={(e) => {handleRishiChange(e, index)}}
-						value={rishis[index]}
-					>
+						value={rishis[index+2] === '' ? '' : rishis[index+2]}
+						defaultValue={''}
+						>
 						{pravaktas[pravaktaIndex].ganas[ganaIndex].rishis.map((rishi, rIndex) => (
 							<MenuItem
 								key={rIndex}
@@ -96,8 +111,9 @@ const Step3 = () => {
 				<Select
 					labelId='gotra-gana-label'
 					id='gotra-gana-selection-list'
-					onChange={handleGanaChange}
-					value={ganaIndex}
+					onChange={ (e) => handleGanaChange(e, 1)}
+					value={ganaIndex === -1 ? '' : ganaIndex}
+					defaultValue={-1}
 					displayEmpty
 					input={<OutlinedInput label="Rishi Gana" />}
 				>
@@ -121,8 +137,9 @@ const Step3 = () => {
 				<Select
 					labelId='pravakta-label'
 					id='pravakta-selection-list'
-					onChange={handlePravaktaChange}
-					value={pravaktaIndex}
+					onChange={(e) => handlePravaktaChange(e, 0)}
+					value={pravaktaIndex === -1 ? '' : pravaktaIndex}
+					defaultValue={-1}
 					displayEmpty
 					input={<OutlinedInput label="Gotra Pravakta" />}
 				>
@@ -159,7 +176,7 @@ const Step3 = () => {
 					<FormControlLabel value="6" control={<Radio />} label="6" />
 					<FormControlLabel value="7" control={<Radio />} label="7" />
 				</RadioGroup>
-				<FormHelperText>{helperText}</FormHelperText>
+				{/* <FormHelperText>{helperText}</FormHelperText> */}
 			</FormControl>
 		);
 	};
@@ -167,7 +184,7 @@ const Step3 = () => {
 	return (
 		<Box sx={{ m: 5, flexGrow: 1, display: { xs: 'none', md: 'block' } }}>
 			<RishiCountForm />
-			<br /><br /><br />
+			<br /><br />
 			{rishiCount > 0 &&
 				< RishiSelectionForm />
 			}
