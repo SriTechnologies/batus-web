@@ -5,7 +5,6 @@ import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
 import Menu from '@mui/material/Menu';
 import MenuIcon from '@mui/icons-material/Menu';
-import Container from '@mui/material/Container';
 import MenuItem from '@mui/material/MenuItem';
 import MenuUsingPopupState from './MenuPopupState';
 
@@ -69,7 +68,7 @@ function AppHeaderBar() {
 	return (
 		// <AppBar>
 			// <Container maxWidth="xl">
-				<Toolbar>
+				<Toolbar align-items='center' sx={{ my: 2}}>
 					<Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
 						<IconButton
 							size="large"
@@ -126,10 +125,10 @@ function AppHeaderBar() {
 					</Typography>
 
 					<Box sx={{ mx: 1, 
-						textDecoration: 'underline', 
-						flexGrow: 1, 
+						flexGrow: 1,
 						gap: 5,
 						display: { xs: 'none', md: 'flex' },
+						alignContent: 'space-evenly'
 					}}>
 						{pages.map((page, itemIndex) => (
 							<MenuUsingPopupState key={itemIndex} item={page} index={itemIndex} />

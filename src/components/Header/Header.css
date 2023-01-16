@@ -1,11 +1,5 @@
-
-
 .header {
     background: #0e0e0e;
-    padding-top: 1rem;
-	padding-bottom: 2rem;
-	padding-left: 1rem;
-	padding-right: 1rem;
     margin: 0 auto;
     text-align: center;
     text-transform: uppercase;
@@ -13,11 +7,7 @@
 }
 
 .banner {
-	background-image: url('../../images/sr2.jpg');
-	/* height: 50px; */
-	/* padding: 3rem; */
+	background-image: url('../../images/banner-background.png');
 	background-position: center;
 	background-size: cover;
-	max-height: 100%;
-	max-width: 100%;
 }

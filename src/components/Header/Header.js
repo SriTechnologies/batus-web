@@ -1,40 +1,37 @@
 import React from 'react';
 import "./Header.css"
 import { Toolbar, Typography, Box, AppBar } from '@mui/material';
-import g1 from '../../images/g1.jpg';
-import a1 from '../../images/as1.jpg';
+import banner_left from '../../images/banner-left.png';
+import banner_right from '../../images/banner-right.png';
 import AppHeaderBar from '../Navigation/AppHeaderBar';
-import bkimg from '../../images/sr2.jpg';
-import { makeStyles } from '@mui/styles';
-
-const useStyles = makeStyles((theme) => ({
-	header: {
-		backgroundImage: `url(${bkimg})`,
-		backgroundSize: 'cover',
-		backgroundPosition: 'center',
-	},
-}));
-
+import banner_background from '../../images/banner-background.png';
 
 export default function Header() {
 
-	const classes = useStyles();
+	const bannerStyle = {
+		backgroundImage: `url(${banner_background})`,
+		backgroundSize: 'cover',
+		backgroundPosition: 'center',
+		backgroundRepeat: 'no-repeat',
+	};
 
 	return (
-		<AppBar className={classes.header} position='static'>
-			<Toolbar align='center' sx={{ my: 2}}>
-				<Box>
-					<img src={g1} alt='BAT' width="60" height="80" />
-				</Box>
-				<Box sx={{ flexGrow: 1 }}>
-					<Typography variant="h4">Welcome to Brahmin Association of Texas (BAT)</Typography>
-				</Box>
-				<Box>
-					<img src={a1} alt='BAT' width="50" height="80" />
-				</Box>
-			</Toolbar>
-			<AppHeaderBar />
-		</AppBar>
+		<div>
+			<AppBar className='header' style={bannerStyle}	position='sticky'>
+				<Toolbar sx={{ my: 2}}>
+					<Box>
+						<img src={banner_left} alt='BAT' width="80" height="90" />
+					</Box>
+					<Box sx={{ flexGrow: 1 }}>
+						<Typography variant="h4">Welcome to Brahmin Association of Texas (BAT)</Typography>
+					</Box>
+					<Box>
+						<img src={banner_right} alt='BAT' width="60" height="100" />
+					</Box>
+				</Toolbar>
+				<AppHeaderBar />
+			</AppBar>
+		</div>
 	);
 }
 
