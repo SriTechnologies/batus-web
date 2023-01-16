@@ -5,86 +5,8 @@
     }
 }
 
-.App {
+.container {
 	text-align: center;
 	margin: 0 auto;
-}
-
-body,
-html {
-	height: 100%;
-}
-
-body {
-	color: black;
-	/* background-color: #282c34; */
-	overflow: auto;
-}
-
-section {
-    display: flex;
-    flex-flow: row wrap;
-    justify-content: space-evenly;
-    margin: 4rem;
-}
-
-form {
-    display: flex;
-    flex-flow: column;
-}
-
-form input {
-    height: 3rem;
-    padding: 1.5rem;
-}
-
-form textarea {
-    padding: 1.5rem;
-}
-
-form button {
-    padding: 1rem;
-    border: none;
-    background: #fcee0b;
-    font-weight: bold;
-    cursor: pointer;
-    transition: background 0.3s;
-    text-transform: uppercase;
-}
-
-form button:hover {
-    background: rgb(243, 212, 35);
-}
-
-form div {
-    display: flex;
-    flex-flow: column;
-    margin-bottom: 1.3rem;
-}
-
-.container {
-    margin: 2rem;
     max-width: 100%;
-}
-
-button {
-	padding: 16px;
-	font-size: 14px;
-	background-color: black;
-	color: white;
-	border-radius: 8px;
-	cursor: pointer;
-	text-transform: capitalize;
-}
-
-input,
-textarea {
-	display: block;
-	width: 300px;
-	padding: 8px;
-	border-radius: 8px;
-	font-family: 'Roboto', Tahoma, Geneva, Verdana, sans-serif;
-	font-size: 16px;
-	border: 2px solid black;
-	margin-bottom: 16px;
 }

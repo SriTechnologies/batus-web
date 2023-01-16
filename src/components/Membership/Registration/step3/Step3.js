@@ -1,12 +1,12 @@
-import React from 'react';
-import { FormControl, FormLabel, FormControlLabel, FormHelperText, RadioGroup, Radio, Select, InputLabel, MenuItem, OutlinedInput } from '@mui/material';
+import React, { Fragment } from 'react';
+import { FormControl, FormLabel, FormControlLabel, FormHelperText, RadioGroup, Radio, Select, InputLabel, MenuItem, OutlinedInput, Paper } from '@mui/material';
 import gotra_data from '../../../../data/gotras.json';
 import { Box } from '@mui/system';
 
 const Step3 = () => {
 
 	const [error, setError] = React.useState(false);
-	const [helperText, setHelperText] = React.useState('Choose number of Rishis:');
+	// const [helperText, setHelperText] = React.useState('Choose number of Rishis:');
 	const [rishiCount, setRishiCount] = React.useState(0);
 	// const [pravaktas, setPravaktas] = React.useState([{ name: '', ganas: [{ name: '', rishis: [] }] }]);
 	const [pravaktas] = React.useState(gotra_data.pravaktas);
@@ -46,7 +46,7 @@ const Step3 = () => {
 
 	const handleRishiChange = (event, index) => {
 		const updatedRishis = [...rishis];
-		updatedRishis[index+2] = event.target.value;
+		updatedRishis[index + 2] = event.target.value;
 		setRishis(updatedRishis);
 		console.log("New Rishis: " + updatedRishis);
 	}
@@ -54,7 +54,7 @@ const Step3 = () => {
 	const handleRishiCountChange = (event) => {
 		console.log("Rishi count: " + event.target.value);
 		setError(false);
-		setHelperText('Number of Rishis: ' + event.target.value);
+		// setHelperText('Number of Rishis: ' + event.target.value);
 		setRishiCount(event.target.value);
 		if (Number(event.target.value) === Number(0)) {
 			console.log("Setting the pravakta & gana to false!!!");
@@ -71,7 +71,7 @@ const Step3 = () => {
 	function CreateRishiLists() {
 		const rishiLists = [];
 
-		for (let index = 0; index < rishiCount-2; index++) {
+		for (let index = 0; index < rishiCount - 2; index++) {
 			rishiLists.push(
 				<FormControl sx={{ m: 1, width: 300 }} size="small" key={`rishi-form-${index}`}>
 					<InputLabel id={`rishi-label-${index}`}>Rishi</InputLabel>
@@ -81,10 +81,10 @@ const Step3 = () => {
 						key={`rishi-list-${index}`}
 						input={<OutlinedInput label="Rishi" />}
 						displayEmpty
-						onChange={(e) => {handleRishiChange(e, index)}}
-						value={rishis[index+2] === '' ? '' : rishis[index+2]}
+						onChange={(e) => { handleRishiChange(e, index) }}
+						value={rishis[index + 2] === '' ? '' : rishis[index + 2]}
 						defaultValue={''}
-						>
+					>
 						{pravaktas[pravaktaIndex].ganas[ganaIndex].rishis.map((rishi, rIndex) => (
 							<MenuItem
 								key={rIndex}
@@ -99,7 +99,7 @@ const Step3 = () => {
 		}
 		return (
 			<div>
-				{ rishiLists }
+				{rishiLists}
 			</div>
 		);
 	};
@@ -111,7 +111,7 @@ const Step3 = () => {
 				<Select
 					labelId='gotra-gana-label'
 					id='gotra-gana-selection-list'
-					onChange={ (e) => handleGanaChange(e, 1)}
+					onChange={(e) => handleGanaChange(e, 1)}
 					value={ganaIndex === -1 ? '' : ganaIndex}
 					defaultValue={-1}
 					displayEmpty
@@ -146,7 +146,7 @@ const Step3 = () => {
 					{pravaktas.map((pravakta, pIndex) => (
 						<MenuItem
 							key={pIndex}
-							value={pIndex+''}
+							value={pIndex + ''}
 						>
 							{pravakta.name}
 						</MenuItem>
@@ -182,19 +182,23 @@ const Step3 = () => {
 	};
 
 	return (
-		<Box sx={{ m: 5, flexGrow: 1, display: { xs: 'none', md: 'block' } }}>
-			<RishiCountForm />
-			<br /><br />
-			{rishiCount > 0 &&
-				< RishiSelectionForm />
-			}
-			{rishiCount > 0 && pravaktaSelected === true &&
-				<CreateGanaLists />
-			}
-			{rishiCount > 0 && pravaktaSelected === true && ganaSelected === true &&
-				<CreateRishiLists />
-			}
-		</Box>
+		<Fragment>
+			<Paper sx={{ m: 5, p: 5 }}>
+				<Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'block' } }}>
+					<RishiCountForm />
+					<br /><br />
+					{rishiCount > 0 &&
+						< RishiSelectionForm />
+					}
+					{rishiCount > 0 && pravaktaSelected === true &&
+						<CreateGanaLists />
+					}
+					{rishiCount > 0 && pravaktaSelected === true && ganaSelected === true &&
+						<CreateRishiLists />
+					}
+				</Box>
+			</Paper>
+		</Fragment>
 	);
 };
 

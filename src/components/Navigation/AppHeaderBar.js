@@ -1,5 +1,4 @@
 import * as React from 'react';
-import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
 import IconButton from '@mui/material/IconButton';
@@ -15,37 +14,39 @@ const pages = [
 		title: 'Home', link: '/', submenu: []
 	},
 	{
-		title: 'Committee', link: '/committee', submenu: [
+		title: 'Committee', link: '', submenu: [
+			{ title: 'Committee', link: '/committee' },
 			{ title: 'Board Members', link: '/boardmembers' },
 			{ title: 'Core Committee', link: '/corecommittee' }
 		]
 	},
 	{
-		title: 'Events', link: '/events', submenu: [
+		title: 'Events', link: '', submenu: [
+			{ title: 'Events', link: '/events' },
 			{ title: 'Annual Events', link: '/annualevents' },
 			{ title: 'Monthly Events', link: '/monthlyevents' }
 		]
 	},
 	{
-		title: 'Membership', link: '/membership', submenu: [
+		title: 'Membership', link: '', submenu: [
+			{ title: 'Membership', link: '/membership' },
 			{ title: 'Become a Member', link: '/registration' },
-			{ title: 'Membership Benefits', link: '/Membership' },
+			{ title: 'Membership Benefits', link: '/membership' },
 		]
 	},
 	{
-		title: 'Volunteer', link: '/volunteer', submenu: [
+		title: 'Volunteer', link: '', submenu: [
+			{ title: 'Volunteer Services', link: '/volunteer' },
 			{ title: 'Register as Volunteer', link: '/volunteer' },
-			{ title: 'Volunteer Services', link: '/volunteer' }
 		]
 	},
 	{
-		title: 'Contact Us', link: '/contactus', submenu: [
-			{ title: 'Email', link: '/contactus' },
-			{ title: 'Contact Details', link: '/contactus' }
+		title: 'Contact Us', link: '', submenu: [
+			{ title: 'Contact Us', link: '/contactus' },
 		]
 	},
 	{
-		title: 'About BAT', link: '/aboutbat', submenu: [
+		title: 'About BAT', link: '', submenu: [
 			{ title: 'About Bat', link: '/aboutbat' },
 			{ title: 'BAT By-Laws', link: '/batbylaws' },
 			{ title: 'BAT Mission', link: '/batmission' }
@@ -66,9 +67,9 @@ function AppHeaderBar() {
 	};
 
 	return (
-		<AppBar position="relative">
-			<Container maxWidth="xl">
-				<Toolbar disableGutters>
+		// <AppBar>
+			// <Container maxWidth="xl">
+				<Toolbar>
 					<Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
 						<IconButton
 							size="large"
@@ -124,14 +125,19 @@ function AppHeaderBar() {
 						BAT
 					</Typography>
 
-					<Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
+					<Box sx={{ mx: 1, 
+						textDecoration: 'underline', 
+						flexGrow: 1, 
+						gap: 5,
+						display: { xs: 'none', md: 'flex' },
+					}}>
 						{pages.map((page, itemIndex) => (
-							<MenuUsingPopupState item={page} index={itemIndex} />
+							<MenuUsingPopupState key={itemIndex} item={page} index={itemIndex} />
 						))}
 					</Box>
 				</Toolbar>
-			</Container>
-		</AppBar>
+			// </Container>
+		// </AppBar>
 	);
 }
 

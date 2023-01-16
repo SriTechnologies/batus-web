@@ -1,7 +1,6 @@
 import React from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import AppStyles from './App.css';
-import AppHeaderBar from './components/Navigation/AppHeaderBar';
+import './App.css';
 import HomePage from './components/HomePage/HomePage';
 import AboutBat from './components/AboutUs/AboutBat';
 import BatByLaws from './components/AboutUs/BatByLaws';
@@ -50,11 +49,10 @@ class App extends Component {
 
 	render() {
 		return (
-			<div className={AppStyles.App}>
+			<div>
 				<BrowserRouter>
 					<Header />
-					<AppHeaderBar />
-					<div class="container">
+					<div className="container">
 						<Routes>
 							<Route path="/" element={<HomePage />} />
 							<Route path="/aboutbat" element={<AboutBat />} />

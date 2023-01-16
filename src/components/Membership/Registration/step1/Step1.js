@@ -20,9 +20,9 @@ const Step1 = () => {
 
 	return (
 		<Fragment>
-			<Paper>
-				<Box px={8} py={2} my={4}>
-					<Typography variant="h6" align="center" margin="dense">
+			<Paper sx={{ m: 5, p: 5 }}>
+				<Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'block' } }}>
+					<Typography variant="h6" align="center">
 						Create Username and Password
 					</Typography>
 
@@ -37,6 +37,7 @@ const Step1 = () => {
 								margin="dense"
 								{...register('fullname')}
 								error={errors.fullname ? true : false}
+								size='small'
 							/>
 							<Typography variant="inherit" color="textSecondary">
 								{errors.fullname?.message}
@@ -52,6 +53,7 @@ const Step1 = () => {
 								margin="dense"
 								{...register('username')}
 								error={errors.username ? true : false}
+								size='small'
 							/>
 							<Typography variant="inherit" color="textSecondary">
 								{errors.username?.message}
@@ -67,6 +69,7 @@ const Step1 = () => {
 								margin="dense"
 								{...register('email')}
 								error={errors.email ? true : false}
+								size='small'
 							/>
 							<Typography variant="inherit" color="textSecondary">
 								{errors.email?.message}
@@ -83,6 +86,7 @@ const Step1 = () => {
 								margin="dense"
 								{...register('password')}
 								error={errors.password ? true : false}
+								size='small'
 							/>
 							<Typography variant="inherit" color="textSecondary">
 								{errors.password?.message}
@@ -99,6 +103,7 @@ const Step1 = () => {
 								margin="dense"
 								{...register('confirmPassword')}
 								error={errors.confirmPassword ? true : false}
+								size='small'
 							/>
 							<Typography variant="inherit" color="textSecondary">
 								{errors.confirmPassword?.message}

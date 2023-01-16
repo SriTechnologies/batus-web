@@ -20,7 +20,7 @@ const Step4 = () => {
 
 	return (
 		<Fragment>
-			<Paper>
+			<Paper sx={{ m: 5, p: 5 }}>
 				<Box px={3} py={2}>
 					<Typography variant="h6" align="center" margin="dense">
 						React Hook Form - Material UI - Validation

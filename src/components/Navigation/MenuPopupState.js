@@ -8,16 +8,16 @@ import PopupState, { bindTrigger, bindMenu } from 'material-ui-popup-state';
 
 export default function MenuPopupState({item, index}) {
 	return (
-	  <PopupState variant="popover" popupId={`${index}`} >
+	  <PopupState variant="popover"opupId={`${index}`} >
 		{(popupState) => (
 		  <React.Fragment>
-			<Button variant="contained" {...bindTrigger(popupState)} sx={{ mx: "1%"}} component={Link} to={item.link}>
+			<Button variant="text" {...bindTrigger(popupState)} component={item.title === 'Home' ? Link : ''} to={item.title === 'Home' ? item.link : ''}>
 				{item.title}
 			</Button>
 			{item.submenu?.length > 0 &&
 				<Menu {...bindMenu(popupState)}>
-					{item.submenu?.map((subitem) => (
-						<MenuItem onClick={popupState.close} component={Link} to={subitem.link}>{subitem.title}</MenuItem>
+					{item.submenu?.map((subitem, sIndex) => (
+						<MenuItem key={sIndex} onClick={popupState.close} component={Link} to={subitem.link}>{subitem.title}</MenuItem>
 					))}
 				</Menu>
 			}
