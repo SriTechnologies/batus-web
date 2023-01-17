@@ -17,8 +17,8 @@ export default function Header() {
 
 	return (
 		<div>
-			<AppBar className='header' style={bannerStyle}	position='sticky'>
-				<Toolbar sx={{ my: 2}}>
+			<AppBar style={bannerStyle}	position='sticky'>
+				<Toolbar className='header' sx={{ my: 2}}>
 					<Box>
 						<img src={banner_left} alt='BAT' width="80" height="90" />
 					</Box>
