@@ -19,14 +19,14 @@ const Step2 = () => {
 	};
 
 	return (
-		<Fragment>
+<Fragment>
 			<Paper sx={{ m: 5, p: 5 }}>
-				<Box px={3} py={2}>
-					<Typography variant="h6" align="center" margin="dense">
-						React Hook Form - Material UI - Validation
+				<Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'block' } }}>
+					<Typography variant="h6" align="center">
+						Member Details
 					</Typography>
 
-					<Grid container spacing={1}>
+					<Grid container spacing={1} justifyContent={'center'}>
 						<Grid item xs={12} sm={12}>
 							<TextField
 								required
@@ -37,6 +37,7 @@ const Step2 = () => {
 								margin="dense"
 								{...register('fullname')}
 								error={errors.fullname ? true : false}
+								size='small'
 							/>
 							<Typography variant="inherit" color="textSecondary">
 								{errors.fullname?.message}
@@ -52,6 +53,7 @@ const Step2 = () => {
 								margin="dense"
 								{...register('username')}
 								error={errors.username ? true : false}
+								size='small'
 							/>
 							<Typography variant="inherit" color="textSecondary">
 								{errors.username?.message}
@@ -67,6 +69,7 @@ const Step2 = () => {
 								margin="dense"
 								{...register('email')}
 								error={errors.email ? true : false}
+								size='small'
 							/>
 							<Typography variant="inherit" color="textSecondary">
 								{errors.email?.message}
@@ -83,6 +86,7 @@ const Step2 = () => {
 								margin="dense"
 								{...register('password')}
 								error={errors.password ? true : false}
+								size='small'
 							/>
 							<Typography variant="inherit" color="textSecondary">
 								{errors.password?.message}
@@ -99,6 +103,7 @@ const Step2 = () => {
 								margin="dense"
 								{...register('confirmPassword')}
 								error={errors.confirmPassword ? true : false}
+								size='small'
 							/>
 							<Typography variant="inherit" color="textSecondary">
 								{errors.confirmPassword?.message}

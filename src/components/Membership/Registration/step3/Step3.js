@@ -1,5 +1,5 @@
 import React, { Fragment } from 'react';
-import { FormControl, FormLabel, FormControlLabel, FormHelperText, RadioGroup, Radio, Select, InputLabel, MenuItem, OutlinedInput, Paper } from '@mui/material';
+import { FormControl, FormLabel, FormControlLabel, FormHelperText, RadioGroup, Radio, Select, InputLabel, MenuItem, OutlinedInput, Paper, Typography, Grid } from '@mui/material';
 import gotra_data from '../../../../data/gotras.json';
 import { Box } from '@mui/system';
 
@@ -184,18 +184,24 @@ const Step3 = () => {
 	return (
 		<Fragment>
 			<Paper sx={{ m: 5, p: 5 }}>
-				<Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'block' } }}>
-					<RishiCountForm />
-					<br /><br />
-					{rishiCount > 0 &&
-						< RishiSelectionForm />
-					}
-					{rishiCount > 0 && pravaktaSelected === true &&
-						<CreateGanaLists />
-					}
-					{rishiCount > 0 && pravaktaSelected === true && ganaSelected === true &&
-						<CreateRishiLists />
-					}
+			<Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'block' } }}>
+					<Typography variant="h6" align="center">
+						Member Details
+					</Typography>
+
+					<Grid container spacing={1} justifyContent={'center'}>
+						<RishiCountForm />
+						<br /><br />
+						{rishiCount > 0 &&
+							< RishiSelectionForm />
+						}
+						{rishiCount > 0 && pravaktaSelected === true &&
+							<CreateGanaLists />
+						}
+						{rishiCount > 0 && pravaktaSelected === true && ganaSelected === true &&
+							<CreateRishiLists />
+						}
+					</Grid>
 				</Box>
 			</Paper>
 		</Fragment>

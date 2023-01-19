@@ -26,7 +26,7 @@ const Step1 = () => {
 						Create Username and Password
 					</Typography>
 
-					<Grid container spacing={1}>
+					<Grid container spacing={1} justifyContent={'center'}>
 						<Grid item xs={12} sm={12}>
 							<TextField
 								required

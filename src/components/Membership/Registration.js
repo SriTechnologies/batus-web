@@ -11,7 +11,7 @@ import Step3 from './Registration/step3/Step3';
 import Step4 from './Registration/step4/Step4';
 import Step5 from './Registration/step5/Steps5';
 
-const steps = ['Setup Credentials', 'Member Details', 'Family Details', 'Gotra Details', 'Contact Details', 'Policy agreement'];
+const steps = ['Setup Credentials', 'Member Details', 'Gotra Details', 'Family Details', 'Contact Details', 'Liability agreement'];
 
 export default function HorizontalNonLinearStepper() {
 	const [activeStep, setActiveStep] = React.useState(0);
@@ -98,7 +98,7 @@ export default function HorizontalNonLinearStepper() {
 				<Stepper activeStep={activeStep}>
 					{steps.map((label, index) => (
 						<Step key={label} completed={completed[index]}>
-							<StepButton color="inherit" onClick={handleStep(index)}>
+							<StepButton  color="inherit" onClick={handleStep(index)}>
 								{label}
 							</StepButton>
 						</Step>
