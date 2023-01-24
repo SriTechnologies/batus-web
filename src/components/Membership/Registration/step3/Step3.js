@@ -1,9 +1,9 @@
 import React, { Fragment } from 'react';
-import { FormControl, FormLabel, FormControlLabel, FormHelperText, RadioGroup, Radio, Select, InputLabel, MenuItem, OutlinedInput, Paper, Typography, Grid } from '@mui/material';
+import { FormControl, FormLabel, FormControlLabel, FormHelperText, RadioGroup, Radio, Select, InputLabel, MenuItem, OutlinedInput, Paper, Typography, Grid, Button } from '@mui/material';
 import gotra_data from '../../../../data/gotras.json';
 import { Box } from '@mui/system';
 
-const Step3 = () => {
+const Step3 = ({ registrationData, steps, activeStep, completed, completedSteps, totalSteps, handleComplete, handleNext, handleBack, ...props }) => {
 
 	const [error, setError] = React.useState(false);
 	// const [helperText, setHelperText] = React.useState('Choose number of Rishis:');
@@ -181,31 +181,70 @@ const Step3 = () => {
 		);
 	};
 
+	function FooterContent() {
+		return (
+			<Box sx={{ display: 'flex', flexDirection: 'row', p: 2 }}>
+				<Button
+					color="inherit"
+					disabled={activeStep === 0}
+					onClick={handleBack}
+					sx={{ mr: 1 }}
+				>
+					Back
+				</Button>
+				<Box sx={{ flex: '1 1 auto' }} />
+				<Button onClick={handleNext} sx={{ mr: 1 }}>
+					Next
+				</Button>
+				{activeStep !== steps.length &&
+					(completed[activeStep] ? (
+						<Typography variant="caption" sx={{ display: 'inline-block' }}>
+							Step {activeStep + 1} already completed
+						</Typography>
+					) : (
+						<Button onClick={handleComplete}>
+							{completedSteps() === totalSteps() - 1
+								? 'Register'
+								: 'Complete Step'}
+						</Button>
+					))}
+			</Box>
+		);
+	};
+
+	function BodyContent() {
+		return (
+			<Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'block' } }}>
+				<Typography variant="h6" align="center">
+					Member Details
+				</Typography>
+
+				<Grid container spacing={1} justifyContent={'center'}>
+					<RishiCountForm />
+					<br /><br />
+					{rishiCount > 0 &&
+						< RishiSelectionForm />
+					}
+					{rishiCount > 0 && pravaktaSelected === true &&
+						<CreateGanaLists />
+					}
+					{rishiCount > 0 && pravaktaSelected === true && ganaSelected === true &&
+						<CreateRishiLists />
+					}
+				</Grid>
+			</Box>
+		);
+	};
+
 	return (
 		<Fragment>
 			<Paper sx={{ m: 5, p: 5 }}>
-			<Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'block' } }}>
-					<Typography variant="h6" align="center">
-						Member Details
-					</Typography>
-
-					<Grid container spacing={1} justifyContent={'center'}>
-						<RishiCountForm />
-						<br /><br />
-						{rishiCount > 0 &&
-							< RishiSelectionForm />
-						}
-						{rishiCount > 0 && pravaktaSelected === true &&
-							<CreateGanaLists />
-						}
-						{rishiCount > 0 && pravaktaSelected === true && ganaSelected === true &&
-							<CreateRishiLists />
-						}
-					</Grid>
-				</Box>
+				<BodyContent />
+				<FooterContent />
 			</Paper>
 		</Fragment>
 	);
-};
+}
+
 
 export default Step3;

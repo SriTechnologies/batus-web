@@ -10,12 +10,13 @@ import Step2 from './Registration/step2/Step2';
 import Step3 from './Registration/step3/Step3';
 import Step4 from './Registration/step4/Step4';
 import Step5 from './Registration/step5/Steps5';
-
+import { RegistrationData } from './Registration/model/RegistrationDataModel'
 const steps = ['Setup Credentials', 'Member Details', 'Gotra Details', 'Family Details', 'Contact Details', 'Liability agreement'];
 
 export default function HorizontalNonLinearStepper() {
 	const [activeStep, setActiveStep] = React.useState(0);
 	const [completed, setCompleted] = React.useState({});
+	const [registrationData, setRegistrationData] = React.useState(new RegistrationData());
 
 	const totalSteps = () => {
 		return steps.length;
@@ -66,17 +67,65 @@ export default function HorizontalNonLinearStepper() {
 	function getStepContent(step) {
 		switch (step) {
 			case 0:
-				return <Step1 />;
+				return <Step1 registrationData={registrationData}
+				 steps={steps}
+				 activeStep={activeStep}
+				 completed={completed}
+				 completedSteps={completedSteps}
+				 totalSteps={totalSteps}
+				 handleComplete={handleComplete}
+				 handleNext={handleNext}
+				 handleBack={handleBack}/>;
 			case 1:
-				return <Step2 />;
+				return <Step2 registrationData={registrationData}
+				 steps={steps}
+				 activeStep={activeStep}
+				 completed={completed}
+				 completedSteps={completedSteps}
+				 totalSteps={totalSteps}
+				 handleComplete={handleComplete}
+				 handleNext={handleNext}
+				 handleBack={handleBack}/>;
 			case 2:
-				return <Step3 />;
+				return <Step3 registrationData={registrationData}
+				 steps={steps}
+				 activeStep={activeStep}
+				 completed={completed}
+				 completedSteps={completedSteps}
+				 totalSteps={totalSteps}
+				 handleComplete={handleComplete}
+				 handleNext={handleNext}
+				 handleBack={handleBack}/>;
 			case 3:
-				return <Step4 />;
+				return <Step4 registrationData={registrationData}
+				 steps={steps}
+				 activeStep={activeStep}
+				 completed={completed}
+				 completedSteps={completedSteps}
+				 totalSteps={totalSteps}
+				 handleComplete={handleComplete}
+				 handleNext={handleNext}
+				 handleBack={handleBack}/>;
 			case 4:
-				return <Step5 />;
+				return <Step5 registrationData={registrationData}
+				 steps={steps}
+				 activeStep={activeStep}
+				 completed={completed}
+				 completedSteps={completedSteps}
+				 totalSteps={totalSteps}
+				 handleComplete={handleComplete}
+				 handleNext={handleNext}
+				 handleBack={handleBack}/>;
 			case 5:
-				return <Step5 />;
+				return <Step5 registrationData={registrationData}
+				 steps={steps}
+				 activeStep={activeStep}
+				 completed={completed}
+				 completedSteps={completedSteps}
+				 totalSteps={totalSteps}
+				 handleComplete={handleComplete}
+				 handleNext={handleNext}
+				 handleBack={handleBack}/>;
 			default:
 				throw new Error("Unknow step");
 		}
@@ -85,16 +134,16 @@ export default function HorizontalNonLinearStepper() {
 	return (
 		<Box sx={{ width: '100%', my: 3 }}>
 			<Box sx={{ my: 5 }}>
-				<Typography variant="h5" align="center">
+				<Typography variant="h4" align="center">
 					Registration Form
 				</Typography>
-				<Typography variant="subtitle2" align="center" sx={{ mt: 2 }}>
+				<Typography variant="subtitle" align="center" sx={{ mt: 5 }}>
 					1) Family registration includes spouse and unmarried dependents only.<br />
 					2) Students can register as Volunteers<br />
 					3) Please read and agree to the Membership Terms and Conditions.<br />
 				</Typography>
 			</Box>
-			<Box sx={{ my: 5, mx: 2 }}>
+			<Box sx={{ my: 10, mx: 20 }}>
 				<Stepper activeStep={activeStep}>
 					{steps.map((label, index) => (
 						<Step key={label} completed={completed[index]}>
@@ -118,34 +167,8 @@ export default function HorizontalNonLinearStepper() {
 					</React.Fragment>
 				) : (
 					<React.Fragment>
-						<Box sx={{ m: 2 }}>
+						<Box sx={{ mx:20 }}>
 							{getStepContent(activeStep)}
-						</Box>
-						<Box sx={{ display: 'flex', flexDirection: 'row', p: 2 }}>
-							<Button
-								color="inherit"
-								disabled={activeStep === 0}
-								onClick={handleBack}
-								sx={{ mr: 1 }}
-							>
-								Back
-							</Button>
-							<Box sx={{ flex: '1 1 auto' }} />
-							<Button onClick={handleNext} sx={{ mr: 1 }}>
-								Next
-							</Button>
-							{activeStep !== steps.length &&
-								(completed[activeStep] ? (
-									<Typography variant="caption" sx={{ display: 'inline-block' }}>
-										Step {activeStep + 1} already completed
-									</Typography>
-								) : (
-									<Button onClick={handleComplete}>
-										{completedSteps() === totalSteps() - 1
-											? 'Finish'
-											: 'Complete Step'}
-									</Button>
-								))}
 						</Box>
 					</React.Fragment>
 				)}
