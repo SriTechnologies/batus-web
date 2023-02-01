@@ -7,6 +7,7 @@ import Menu from '@mui/material/Menu';
 import MenuIcon from '@mui/icons-material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import MenuUsingPopupState from './MenuPopupState';
+import { Divider } from '@mui/material';
 
 const pages = [
 	{
@@ -66,77 +67,75 @@ function AppHeaderBar() {
 	};
 
 	return (
-		// <AppBar>
-			// <Container maxWidth="xl">
-				<Toolbar align-items='center' sx={{ my: 2}}>
-					<Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
-						<IconButton
-							size="large"
-							aria-label="BAT"
-							aria-controls="menu-appbar"
-							aria-haspopup="true"
-							onClick={handleOpenNavMenu}
-							color="inherit"
-						>
-							<MenuIcon />
-						</IconButton>
-						<Menu
-							id="menu-appbar"
-							anchorEl={anchorElNav}
-							anchorOrigin={{
-								vertical: 'bottom',
-								horizontal: 'left',
-							}}
-							keepMounted
-							transformOrigin={{
-								vertical: 'top',
-								horizontal: 'left',
-							}}
-							open={Boolean(anchorElNav)}
-							onClose={handleCloseNavMenu}
-							sx={{
-								display: { xs: 'block', md: 'none' },
-							}}
-						>
-							{pages.map((page) => (
-								<MenuItem key={page.title} onClick={handleCloseNavMenu}>
-									<Typography textAlign="center">{page.title}</Typography>
-								</MenuItem>
-							))}
-						</Menu>
-					</Box>
-					<Typography
-						variant="h5"
-						noWrap
-						component="a"
-						href=""
+		<div>
+			<Toolbar align-items='center' sx={{ mx: 'auto', width: '100%', maxWidth: 1000, }}>
+				<Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
+					<IconButton
+						size="large"
+						aria-label="BAT"
+						aria-controls="menu-appbar"
+						aria-haspopup="true"
+						onClick={handleOpenNavMenu}
+						color="inherit"
+					>
+						<MenuIcon />
+					</IconButton>
+					<Menu
+						id="menu-appbar"
+						anchorEl={anchorElNav}
+						anchorOrigin={{
+							vertical: 'bottom',
+							horizontal: 'left',
+						}}
+						keepMounted
+						transformOrigin={{
+							vertical: 'top',
+							horizontal: 'left',
+						}}
+						open={Boolean(anchorElNav)}
+						onClose={handleCloseNavMenu}
 						sx={{
-							mr: 2,
-							display: { xs: 'flex', md: 'none' },
-							flexGrow: 1,
-							fontFamily: 'monospace',
-							fontWeight: 700,
-							letterSpacing: '.3rem',
-							color: 'inherit',
-							textDecoration: 'none',
+							display: { xs: 'block', md: 'none' },
 						}}
 					>
-						BAT
-					</Typography>
-
-					<Box sx={{ mx: 1, 
-						flexGrow: 1,
-						gap: 5,
-						display: { xs: 'none', md: 'flex' },
-						alignContent: 'space-evenly'
-					}}>
-						{pages.map((page, itemIndex) => (
-							<MenuUsingPopupState key={itemIndex} item={page} index={itemIndex} />
+						{pages.map((page) => (
+							<MenuItem key={page.title} onClick={handleCloseNavMenu}>
+								<Typography textAlign="center">{page.title}</Typography>
+							</MenuItem>
 						))}
-					</Box>
-				</Toolbar>
-			// </Container>
-		// </AppBar>
+					</Menu>
+				</Box>
+				<Typography
+					variant="h5"
+					noWrap
+					component="a"
+					href=""
+					sx={{
+						mr: 2,
+						display: { xs: 'flex', md: 'none' },
+						flexGrow: 1,
+						fontFamily: 'monospace',
+						fontWeight: 700,
+						letterSpacing: '.3rem',
+						color: 'inherit',
+						textDecoration: 'none',
+					}}
+				>
+					BAT
+				</Typography>
+
+				<Box sx={{
+					flexGrow: 1,
+					gap: 10,
+					display: { xs: 'none', md: 'flex' },
+				}}>
+					{pages.map((page, itemIndex) => (
+						<MenuUsingPopupState key={itemIndex} item={page} index={itemIndex} />
+					))}
+				</Box>
+			</Toolbar>
+			<Divider variant="middle" sx={{ width: '100%', color: "primary" }} />
+		</div>
 	);
 }
 

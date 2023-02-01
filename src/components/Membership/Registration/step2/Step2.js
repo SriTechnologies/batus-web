@@ -1,21 +1,28 @@
 import React, { Fragment } from 'react';
-import { useForm, Controller } from 'react-hook-form';
+import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { Paper, Box, Grid, TextField, Typography, FormControlLabel, Checkbox, Button } from '@mui/material';
+import { Paper, Box, Grid, TextField, Typography, Button } from '@mui/material';
 import { step2validations } from './validations/step2validations';
+import Stack from '@mui/material/Stack';
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
+import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
+import { DatePicker } from '@mui/x-date-pickers/DatePicker';
+// import dayjs from 'dayjs';
 
 const Step2 = ({ registrationData, steps, activeStep, completed, completedSteps, totalSteps, handleComplete, handleNext, handleBack, ...props }) => {
 	const {
 		register,
-		control,
 		handleSubmit,
-		formState: { errors }
+		formState: { isDirty, isValid, errors }
 	} = useForm({
 		resolver: yupResolver(step2validations)
 	});
 
+	const [dob_value, setDOBValue] = React.useState(null);
+
 	const onSubmit = data => {
 		console.log(JSON.stringify(data, null, 2));
+		handleNext();
 	};
 	function FooterContent() {
 		return (
@@ -29,21 +36,28 @@ const Step2 = ({ registrationData, steps, activeStep, completed, completedSteps,
 					Back
 				</Button>
 				<Box sx={{ flex: '1 1 auto' }} />
-				<Button onClick={handleNext} sx={{ mr: 1 }}>
+				<Button
+					onClick={handleSubmit(onSubmit)}
+					sx={{ mr: 1 }}
+					disabled={!isDirty || !isValid}
+				>
 					Next
 				</Button>
-				{activeStep !== steps.length &&
-					(completed[activeStep] ? (
-						<Typography variant="caption" sx={{ display: 'inline-block' }}>
-							Step {activeStep + 1} already completed
-						</Typography>
-					) : (
-						<Button onClick={handleComplete}>
-							{completedSteps() === totalSteps() - 1
-								? 'Register'
-								: 'Complete Step'}
-						</Button>
-					))}
+				{/* {activeStep !== steps.length &&
+					(completed[activeStep] ?
+						(
+							<Typography variant="caption" sx={{ display: 'inline-block' }}>
+								Step {activeStep + 1} already completed
+							</Typography>
+						) : (
+							<Button onClick={handleComplete}>
+								{completedSteps() === totalSteps() - 1
+									? 'Register'
+									: 'Complete Step'}
+							</Button>
+						)
+					)
+				} */}
 			</Box>
 		);
 	};
@@ -52,132 +66,97 @@ const Step2 = ({ registrationData, steps, activeStep, completed, completedSteps,
 		return (
 			<Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'block' } }}>
 				<Typography variant="h6" align="center">
-					Create Username and Password
+					Member Details
 				</Typography>
 
 				<Grid container spacing={1} justifyContent={'center'}>
 					<Grid item xs={12} sm={12}>
 						<TextField
 							required
-							id="fullname"
-							name="fullname"
-							label="Full Name"
+							id="firstname"
+							name="firstname"
+							key="firstname"
+							label="First Name"
 							fullWidth
 							margin="dense"
-							{...register('fullname')}
-							error={errors.fullname ? true : false}
+							{...register('firstname')}
+							error={errors.firstname ? true : false}
 							size='small'
 						/>
 						<Typography variant="inherit" color="textSecondary">
-							{errors.fullname?.message}
+							{errors.firstname?.message}
 						</Typography>
 					</Grid>
-					<Grid item xs={12} sm={6}>
+				</Grid>
+				<Grid container spacing={1} justifyContent={'center'}>
+					<Grid item xs={12} sm={12}>
+						<TextField
+							id="middlename"
+							name="middlename"
+							key="middlename"
+							label="Middle Name"
+							fullWidth
+							margin="dense"
+							{...register('middlename')}
+							error={errors.firstname ? true : false}
+							size='small'
+						/>
+						<Typography variant="inherit" color="textSecondary">
+							{errors.middlename?.message}
+						</Typography>
+					</Grid>
+				</Grid>
+				<Grid container spacing={1} justifyContent={'center'}>
+					<Grid item xs={12} sm={12}>
 						<TextField
 							required
-							id="username"
-							name="username"
-							label="Username"
+							id="lastname"
+							name="lastname"
+							key="lastname"
+							label="Last Name"
 							fullWidth
 							margin="dense"
-							{...register('username')}
-							error={errors.username ? true : false}
+							{...register('lastname')}
+							error={errors.lastname ? true : false}
 							size='small'
 						/>
 						<Typography variant="inherit" color="textSecondary">
-							{errors.username?.message}
-						</Typography>
-					</Grid>
-					<Grid item xs={12} sm={6}>
-						<TextField
-							required
-							id="email"
-							name="email"
-							label="Email"
-							fullWidth
-							margin="dense"
-							{...register('email')}
-							error={errors.email ? true : false}
-							size='small'
-						/>
-						<Typography variant="inherit" color="textSecondary">
-							{errors.email?.message}
-						</Typography>
-					</Grid>
-					<Grid item xs={12} sm={6}>
-						<TextField
-							required
-							id="password"
-							name="password"
-							label="Password"
-							type="password"
-							fullWidth
-							margin="dense"
-							{...register('password')}
-							error={errors.password ? true : false}
-							size='small'
-						/>
-						<Typography variant="inherit" color="textSecondary">
-							{errors.password?.message}
-						</Typography>
-					</Grid>
-					<Grid item xs={12} sm={6}>
-						<TextField
-							required
-							id="confirmPassword"
-							name="confirmPassword"
-							label="Confirm Password"
-							type="password"
-							fullWidth
-							margin="dense"
-							{...register('confirmPassword')}
-							error={errors.confirmPassword ? true : false}
-							size='small'
-						/>
-						<Typography variant="inherit" color="textSecondary">
-							{errors.confirmPassword?.message}
-						</Typography>
-					</Grid>
-					<Grid item xs={12}>
-						<FormControlLabel
-							control={
-								<Controller
-									control={control}
-									name="acceptTerms"
-									defaultValue="false"
-									inputRef={register()}
-									render={({ field: { onChange } }) => (
-										<Checkbox
-											color="primary"
-											onChange={e => onChange(e.target.checked)}
-										/>
-									)}
-								/>
-							}
-							label={
-								<Typography color={errors.acceptTerms ? 'error' : 'inherit'}>
-									I have read and agree to the Terms *
-								</Typography>
-							}
-						/>
-						<br />
-						<Typography variant="inherit" color="textSecondary">
-							{errors.acceptTerms
-								? '(' + errors.acceptTerms.message + ')'
-								: ''}
+							{errors.lastname?.message}
 						</Typography>
 					</Grid>
 				</Grid>
 
-				<Box mt={3}>
-					<Button
-						variant="contained"
-						color="primary"
-						onClick={handleSubmit(onSubmit)}
-					>
-						Register
-					</Button>
-				</Box>
+				<Grid container spacing={1} justifyContent={'center'}>
+					<Grid item xs={12} sm={12}>
+						<LocalizationProvider dateAdapter={AdapterDayjs}>
+							<Stack spacing={3}>
+								<DatePicker
+									disableFuture
+									openTo="year"
+									views={['year', 'month', 'day']}
+									label="Date of Birth"
+									value={dob_value}
+									onChange={(newValue) => {
+										setDOBValue(newValue);
+									}}
+									renderInput={(params) =>
+										<TextField
+											{...params}
+											id="dob"
+											name="dob"
+											{...register('dob')}
+											error={errors.dob ? true : false}
+										/>
+									}
+								/>
+								<Typography variant="inherit" color="textSecondary">
+									{errors.dob?.message}
+								</Typography>
+							</Stack>
+						</LocalizationProvider>
+					</Grid>
+				</Grid>
+
 			</Box>
 		);
 	};

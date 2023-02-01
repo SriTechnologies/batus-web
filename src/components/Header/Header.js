@@ -29,8 +29,8 @@ export default function Header() {
 						<img src={banner_right} alt='BAT' width="60" height="100" />
 					</Box>
 				</Toolbar>
-				<AppHeaderBar />
 			</AppBar>
+			<AppHeaderBar />
 		</div>
 	);
 }

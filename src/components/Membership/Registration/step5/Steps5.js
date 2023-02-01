@@ -62,6 +62,7 @@ const Step5 = ({ registrationData, steps, activeStep, completed, completedSteps,
 							required
 							id="fullname"
 							name="fullname"
+							key={"fullname"}
 							label="Full Name"
 							fullWidth
 							margin="dense"

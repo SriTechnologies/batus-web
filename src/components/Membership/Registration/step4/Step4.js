@@ -1,22 +1,103 @@
 import React, { Fragment } from 'react';
-import { useForm, Controller } from 'react-hook-form';
+import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { Paper, Box, Grid, TextField, Typography, FormControlLabel, Checkbox, Button } from '@mui/material';
+import { Paper, Box, Grid, TextField, Typography, FormControlLabel, Button, FormControl, FormLabel, RadioGroup, Radio, InputLabel, Select, MenuItem } from '@mui/material';
 import { step4vaidations } from './validations/step4validations';
 
 const Step4 = ({ registrationData, steps, activeStep, completed, completedSteps, totalSteps, handleComplete, handleNext, handleBack, ...props }) => {
 	const {
 		register,
-		control,
 		handleSubmit,
 		formState: { errors }
 	} = useForm({
 		resolver: yupResolver(step4vaidations)
 	});
 
+	const [maritalStatusValue, setMaritalStatusValue] = React.useState('');
+	const [childCount, setChildCount] = React.useState(0);
+
+	const handleMaritalStatus = (event) => {
+		setMaritalStatusValue(event.target.value);
+	};
+
+	const handleChildCount = (event) => {
+		console.log("Children count: " + event.target.value);
+		setChildCount(event.target.value)
+	}
+
 	const onSubmit = data => {
 		console.log(JSON.stringify(data, null, 2));
 	};
+
+	function ChildrenDetails() {
+		const childList = [];
+
+		for (let index = 0; index < childCount; index++) {
+			childList.push(
+				<Grid container spacing={1} mt={2} justifyContent={'center'}>
+					<Typography>
+						Child {index+1} Details
+					</Typography>
+
+					<Grid item xs={12} sm={12}>
+						<TextField
+							required
+							id={`c_firstname_${index}`}
+							name={`c_firstname_${index}`}
+							key={`c_firstname_${index}`}
+							label="First Name"
+							fullWidth
+							margin="dense"
+							size='small'
+						/>
+					</Grid>
+					<Grid item xs={12} sm={12}>
+						<TextField
+							required
+							id={`c_middlename_${index}`}
+							name={`c_middlename_${index}`}
+							key={`c_middlename_${index}`}
+							label="Middle Name"
+							fullWidth
+							margin="dense"
+							size='small'
+						/>
+					</Grid>
+					<Grid item xs={12} sm={12}>
+						<TextField
+							required
+							id={`c_lastname_${index}`}
+							name={`c_lastname_${index}`}
+							key={`c_lastname_${index}`}
+							label="Last Name"
+							fullWidth
+							margin="dense"
+							size='small'
+						/>
+					</Grid>
+					<Grid item xs={12} sm={12}>
+						<TextField
+							required
+							id={`c_age_${index}`}
+							name={`c_age_${index}`}
+							key={`c_age_${index}`}
+							label="Age"
+							fullWidth
+							margin="dense"
+							size='small'
+						/>
+					</Grid>
+				</Grid>
+			);
+		}
+
+		return (
+			<div>
+				{childList}
+			</div>
+		);
+	};
+
 	function FooterContent() {
 		return (
 			<Box sx={{ display: 'flex', flexDirection: 'row', p: 2 }}>
@@ -29,21 +110,12 @@ const Step4 = ({ registrationData, steps, activeStep, completed, completedSteps,
 					Back
 				</Button>
 				<Box sx={{ flex: '1 1 auto' }} />
-				<Button onClick={handleNext} sx={{ mr: 1 }}>
+				<Button
+					onClick={handleSubmit(onSubmit)}
+					sx={{ mr: 1 }}
+				>
 					Next
 				</Button>
-				{activeStep !== steps.length &&
-					(completed[activeStep] ? (
-						<Typography variant="caption" sx={{ display: 'inline-block' }}>
-							Step {activeStep + 1} already completed
-						</Typography>
-					) : (
-						<Button onClick={handleComplete}>
-							{completedSteps() === totalSteps() - 1
-								? 'Finish'
-								: 'Complete Step'}
-						</Button>
-					))}
 			</Box>
 		);
 	};
@@ -52,132 +124,139 @@ const Step4 = ({ registrationData, steps, activeStep, completed, completedSteps,
 		return (
 			<Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'block' } }}>
 				<Typography variant="h6" align="center">
-					Create Username and Password
+					Personal & Family Details
 				</Typography>
 
 				<Grid container spacing={1} justifyContent={'center'}>
-					<Grid item xs={12} sm={12}>
-						<TextField
-							required
-							id="fullname"
-							name="fullname"
-							label="Full Name"
-							fullWidth
-							margin="dense"
-							{...register('fullname')}
-							error={errors.fullname ? true : false}
-							size='small'
-						/>
-						<Typography variant="inherit" color="textSecondary">
-							{errors.fullname?.message}
-						</Typography>
-					</Grid>
-					<Grid item xs={12} sm={6}>
-						<TextField
-							required
-							id="username"
-							name="username"
-							label="Username"
-							fullWidth
-							margin="dense"
-							{...register('username')}
-							error={errors.username ? true : false}
-							size='small'
-						/>
-						<Typography variant="inherit" color="textSecondary">
-							{errors.username?.message}
-						</Typography>
-					</Grid>
-					<Grid item xs={12} sm={6}>
-						<TextField
-							required
-							id="email"
-							name="email"
-							label="Email"
-							fullWidth
-							margin="dense"
-							{...register('email')}
-							error={errors.email ? true : false}
-							size='small'
-						/>
-						<Typography variant="inherit" color="textSecondary">
-							{errors.email?.message}
-						</Typography>
-					</Grid>
-					<Grid item xs={12} sm={6}>
-						<TextField
-							required
-							id="password"
-							name="password"
-							label="Password"
-							type="password"
-							fullWidth
-							margin="dense"
-							{...register('password')}
-							error={errors.password ? true : false}
-							size='small'
-						/>
-						<Typography variant="inherit" color="textSecondary">
-							{errors.password?.message}
-						</Typography>
-					</Grid>
-					<Grid item xs={12} sm={6}>
-						<TextField
-							required
-							id="confirmPassword"
-							name="confirmPassword"
-							label="Confirm Password"
-							type="password"
-							fullWidth
-							margin="dense"
-							{...register('confirmPassword')}
-							error={errors.confirmPassword ? true : false}
-							size='small'
-						/>
-						<Typography variant="inherit" color="textSecondary">
-							{errors.confirmPassword?.message}
-						</Typography>
-					</Grid>
-					<Grid item xs={12}>
-						<FormControlLabel
-							control={
-								<Controller
-									control={control}
-									name="acceptTerms"
-									defaultValue="false"
-									inputRef={register()}
-									render={({ field: { onChange } }) => (
-										<Checkbox
-											color="primary"
-											onChange={e => onChange(e.target.checked)}
-										/>
-									)}
-								/>
-							}
-							label={
-								<Typography color={errors.acceptTerms ? 'error' : 'inherit'}>
-									I have read and agree to the Terms *
-								</Typography>
-							}
-						/>
-						<br />
-						<Typography variant="inherit" color="textSecondary">
-							{errors.acceptTerms
-								? '(' + errors.acceptTerms.message + ')'
-								: ''}
-						</Typography>
-					</Grid>
-				</Grid>
 
-				<Box mt={3}>
-					<Button
-						variant="contained"
-						color="primary"
-						onClick={handleSubmit(onSubmit)}
-					>
-						Register
-					</Button>
-				</Box>
+					<FormControl>
+						<FormLabel id="marital-status-label">Marital Status</FormLabel>
+						<RadioGroup
+							row
+							aria-labelledby="marital-status-label"
+							name="marital-status-group"
+							value={maritalStatusValue}
+							onChange={handleMaritalStatus}
+						>
+							<FormControlLabel value="1" control={<Radio />} label="Single" />
+							<FormControlLabel value="2" control={<Radio />} label="Married" />
+						</RadioGroup>
+					</FormControl>
+
+					{maritalStatusValue === '2' &&
+						<Grid container spacing={2} justifyContent={'center'}>
+							<Typography>
+								Spouse Details
+							</Typography>
+
+							<Grid item xs={12} sm={12}>
+								<TextField
+									required
+									id="s_firstname"
+									name="s_firstname"
+									label="First Name"
+									fullWidth
+									margin="dense"
+									{...register('s_firstname')}
+									error={errors.s_firstname ? true : false}
+									size='small'
+								/>
+								<Typography variant="inherit" color="textSecondary">
+									{errors.s_firstname?.message}
+								</Typography>
+							</Grid>
+							<Grid item xs={12} sm={12}>
+								<TextField
+									required
+									id="s_maidenname"
+									name="s_maidenname"
+									label="Maiden Name"
+									fullWidth
+									margin="dense"
+									{...register('s_maidenname')}
+									error={errors.s_maidenname ? true : false}
+									size='small'
+								/>
+								<Typography variant="inherit" color="textSecondary">
+									{errors.s_maidenname?.message}
+								</Typography>
+							</Grid>
+							<Grid item xs={12} sm={12}>
+								<TextField
+									required
+									id="s_middlename"
+									name="s_middlename"
+									label="Middle Name"
+									fullWidth
+									margin="dense"
+									{...register('s_middlename')}
+									error={errors.s_middlename ? true : false}
+									size='small'
+								/>
+								<Typography variant="inherit" color="textSecondary">
+									{errors.s_middlename?.message}
+								</Typography>
+							</Grid>
+							<Grid item xs={12} sm={12}>
+								<TextField
+									required
+									id="s_lastname"
+									name="s_lastname"
+									label="Last Name"
+									fullWidth
+									margin="dense"
+									{...register('s_lastname')}
+									error={errors.s_lastname ? true : false}
+									size='small'
+								/>
+								<Typography variant="inherit" color="textSecondary">
+									{errors.s_lastname?.message}
+								</Typography>
+							</Grid>
+							<Grid item xs={12} sm={12}>
+								<TextField
+									required
+									id="s_gotram"
+									name="s_gotram"
+									label="Maiden Gotram"
+									fullWidth
+									margin="dense"
+									{...register('s_gotram')}
+									error={errors.s_gotram ? true : false}
+									size='small'
+								/>
+								<Typography variant="inherit" color="textSecondary">
+									{errors.s_lastname?.message}
+								</Typography>
+							</Grid>
+
+							<FormControl sx={{ m: 5, minWidth: 120 }}>
+							<InputLabel id="child-count-label">Children</InputLabel>
+							<Select
+								labelId="child-count-label"
+								id="child-count-select"
+								value={childCount}
+								label="No. of Children"
+								onChange={handleChildCount}
+							>
+								<MenuItem value={0}>
+									<em>None</em>
+								</MenuItem>
+								<MenuItem value={1}>1</MenuItem>
+								<MenuItem value={2}>2</MenuItem>
+								<MenuItem value={3}>3</MenuItem>
+								<MenuItem value={4}>4</MenuItem>
+							</Select>
+						</FormControl>
+
+						</Grid>
+					}
+
+					{childCount > 0 &&
+						<ChildrenDetails />
+					}
+
+				</Grid>
 			</Box>
 		);
 	};

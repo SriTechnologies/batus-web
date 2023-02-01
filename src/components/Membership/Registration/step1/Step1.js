@@ -1,23 +1,28 @@
 import React, { Fragment } from 'react';
-import { useForm, Controller } from 'react-hook-form';
+import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { Paper, Box, Grid, TextField, Typography, FormControlLabel, Checkbox, Button } from '@mui/material';
+import { Paper, Box, Grid, TextField, Typography, Button } from '@mui/material';
 import { step1validations } from './validations/step1validations';
 
 const Step1 = ({ registrationData, steps, activeStep, completed, completedSteps, totalSteps, handleComplete, handleNext, handleBack, ...props }) => {
 	const {
 		register,
-		control,
 		handleSubmit,
-		formState: { errors }
-	} = useForm({
-		resolver: yupResolver(step1validations)
-	});
+		formState: { isDirty, isValid, errors }
 
-	const [formComplete, setFormComplete] = React.useState(0);
+	} = useForm({
+		resolver: yupResolver(step1validations),
+		defaultValues: {
+			username: '',
+			email: '',
+			password: '',
+			confirmPassword: ''
+		},
+	});
 
 	const onSubmit = data => {
 		console.log(JSON.stringify(data, null, 2));
+		handleNext();
 	};
 
 	function FooterContent() {
@@ -33,27 +38,12 @@ const Step1 = ({ registrationData, steps, activeStep, completed, completedSteps,
 				</Button>
 				<Box sx={{ flex: '1 1 auto' }} />
 				<Button 
-					onClick={handleNext}
+					onClick={handleSubmit(onSubmit)}
 					sx={{ mr: 1 }}
-					disabled={ formComplete === 0}
+					disabled={!isDirty || !isValid}
 				>
 					Next
 				</Button>
-				{activeStep !== steps.length &&
-					(completed[activeStep] ? (
-						<Typography variant="caption" sx={{ display: 'inline-block' }}>
-							Step {activeStep + 1} already completed
-						</Typography>
-					) : (
-						<Button 
-							onClick={handleComplete} 
-							disabled={ formComplete === 0}
-						>
-							{completedSteps() === totalSteps() - 1
-								? 'Register'
-								: 'Complete Step'}
-						</Button>
-					))}
 			</Box>
 		);
 	};
@@ -70,6 +60,7 @@ const Step1 = ({ registrationData, steps, activeStep, completed, completedSteps,
 						<TextField
 							required
 							id="username"
+							key={"username"}
 							name="username"
 							label="Username"
 							fullWidth
@@ -86,6 +77,7 @@ const Step1 = ({ registrationData, steps, activeStep, completed, completedSteps,
 						<TextField
 							required
 							id="email"
+							key={"email"}
 							name="email"
 							label="Email"
 							fullWidth
@@ -102,6 +94,7 @@ const Step1 = ({ registrationData, steps, activeStep, completed, completedSteps,
 						<TextField
 							required
 							id="password"
+							key={"password"}
 							name="password"
 							label="Password"
 							type="password"
@@ -119,6 +112,7 @@ const Step1 = ({ registrationData, steps, activeStep, completed, completedSteps,
 						<TextField
 							required
 							id="confirmPassword"
+							key={"confirmPassword"}
 							name="confirmPassword"
 							label="Confirm Password"
 							type="password"

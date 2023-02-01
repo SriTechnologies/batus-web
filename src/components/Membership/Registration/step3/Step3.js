@@ -1,9 +1,19 @@
 import React, { Fragment } from 'react';
-import { FormControl, FormLabel, FormControlLabel, FormHelperText, RadioGroup, Radio, Select, InputLabel, MenuItem, OutlinedInput, Paper, Typography, Grid, Button } from '@mui/material';
+import { FormControl, FormLabel, FormControlLabel, RadioGroup, Radio, Select, InputLabel, MenuItem, OutlinedInput, Paper, Typography, Grid, Button, TextField } from '@mui/material';
 import gotra_data from '../../../../data/gotras.json';
 import { Box } from '@mui/system';
+import { useForm } from 'react-hook-form';
+import { yupResolver } from '@hookform/resolvers/yup';
+import { step3validations } from './validations/step3validations';
 
 const Step3 = ({ registrationData, steps, activeStep, completed, completedSteps, totalSteps, handleComplete, handleNext, handleBack, ...props }) => {
+	const {
+		register,
+		handleSubmit,
+		formState: { errors }
+	} = useForm({
+		resolver: yupResolver(step3validations),
+	});
 
 	const [error, setError] = React.useState(false);
 	// const [helperText, setHelperText] = React.useState('Choose number of Rishis:');
@@ -58,14 +68,18 @@ const Step3 = ({ registrationData, steps, activeStep, completed, completedSteps,
 		setRishiCount(event.target.value);
 		if (Number(event.target.value) === Number(0)) {
 			console.log("Setting the pravakta & gana to false!!!");
-			setGanaIndex(-1);
-			setGanaSelected(false);
-			setPravaktaIndex(-1);
-			setPravaktaSelected(false);
-			setRishis([]);
+			resetForm();
 		} else {
 			// if 
 		}
+	};
+
+	const resetForm = () => {
+		setGanaIndex(-1);
+		setGanaSelected(false);
+		setPravaktaIndex(-1);
+		setPravaktaSelected(false);
+		setRishis([]);
 	};
 
 	function CreateRishiLists() {
@@ -163,9 +177,11 @@ const Step3 = ({ registrationData, steps, activeStep, completed, completedSteps,
 				<RadioGroup
 					row
 					aria-labelledby="rishi-count-label"
-					name="gotra-count-radio-buttons-group"
+					name="rishiCount"
 					value={rishiCount}
 					onChange={handleRishiCountChange}
+					// id="rishiCount"
+					// {...register('rishiCount')}
 				>
 					<FormControlLabel value="0" control={<Radio />} label="Unknown" />
 					<FormControlLabel value="1" control={<Radio />} label="1" />
@@ -181,6 +197,11 @@ const Step3 = ({ registrationData, steps, activeStep, completed, completedSteps,
 		);
 	};
 
+	const onSubmit = data => {
+		console.log(JSON.stringify(data, null, 2));
+		handleNext();
+	};
+
 	function FooterContent() {
 		return (
 			<Box sx={{ display: 'flex', flexDirection: 'row', p: 2 }}>
@@ -193,10 +214,14 @@ const Step3 = ({ registrationData, steps, activeStep, completed, completedSteps,
 					Back
 				</Button>
 				<Box sx={{ flex: '1 1 auto' }} />
-				<Button onClick={handleNext} sx={{ mr: 1 }}>
+				<Button
+					onClick={handleSubmit(onSubmit)}
+					sx={{ mr: 1 }}
+					disabled={rishis.length < 1}
+				>
 					Next
 				</Button>
-				{activeStep !== steps.length &&
+				{/* {activeStep !== steps.length &&
 					(completed[activeStep] ? (
 						<Typography variant="caption" sx={{ display: 'inline-block' }}>
 							Step {activeStep + 1} already completed
@@ -207,7 +232,7 @@ const Step3 = ({ registrationData, steps, activeStep, completed, completedSteps,
 								? 'Register'
 								: 'Complete Step'}
 						</Button>
-					))}
+					))} */}
 			</Box>
 		);
 	};
@@ -216,21 +241,43 @@ const Step3 = ({ registrationData, steps, activeStep, completed, completedSteps,
 		return (
 			<Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'block' } }}>
 				<Typography variant="h6" align="center">
-					Member Details
+					Gotram and Pravara Rishis
 				</Typography>
 
-				<Grid container spacing={1} justifyContent={'center'}>
-					<RishiCountForm />
-					<br /><br />
-					{rishiCount > 0 &&
-						< RishiSelectionForm />
-					}
-					{rishiCount > 0 && pravaktaSelected === true &&
-						<CreateGanaLists />
-					}
-					{rishiCount > 0 && pravaktaSelected === true && ganaSelected === true &&
-						<CreateRishiLists />
-					}
+				<Grid container spacing={2} mt={5} mb={5} justifyContent={'center'}>
+					<Grid item xs={12} sm={12}>
+						<TextField
+							required
+							id="gotram"
+							name="gotram"
+							key="gotram"
+							label="Enter your Gotram"
+							fullWidth
+							margin="dense"
+							{...register('gotram')}
+							error={errors.gotram ? true : false}
+							size='small'
+						/>
+						<Typography variant="inherit" color="textSecondary">
+							{errors.gotram?.message}
+						</Typography>
+					</Grid>
+
+					<Grid item xs={12} sm={12}>
+						<RishiCountForm />
+					</Grid>
+
+					<Grid item xs={12} sm={12}>
+						{rishiCount > 0 &&
+							<RishiSelectionForm />
+						}	
+						{rishiCount > 0 && pravaktaSelected === true &&
+							<CreateGanaLists />
+						}
+						{rishiCount > 0 && pravaktaSelected === true && ganaSelected === true &&
+							<CreateRishiLists />
+						}
+					</Grid>
 				</Grid>
 			</Box>
 		);
