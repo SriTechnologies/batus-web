@@ -7,9 +7,8 @@ import Stack from '@mui/material/Stack';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
-// import dayjs from 'dayjs';
 
-const Step2 = ({ registrationData, steps, activeStep, completed, completedSteps, totalSteps, handleComplete, handleNext, handleBack, ...props }) => {
+const Step2 = ({ registrationData, setRegistrationData, steps, activeStep, completed, completedSteps, totalSteps, handleComplete, handleNext, handleBack, ...props }) => {
 	const {
 		register,
 		handleSubmit,
@@ -22,6 +21,13 @@ const Step2 = ({ registrationData, steps, activeStep, completed, completedSteps,
 
 	const onSubmit = data => {
 		console.log(JSON.stringify(data, null, 2));
+		console.log("Registration Data: " + JSON.stringify(registrationData, null, 2));
+		const regData = registrationData;
+		regData.mem_firstname = data.firstname;
+		regData.mem_middlename = data.middlename;
+		regData.mem_lastname = data.lastname;
+		regData.mem_dob = dob_value;
+		setRegistrationData(regData);
 		handleNext();
 	};
 	function FooterContent() {
@@ -43,21 +49,6 @@ const Step2 = ({ registrationData, steps, activeStep, completed, completedSteps,
 				>
 					Next
 				</Button>
-				{/* {activeStep !== steps.length &&
-					(completed[activeStep] ?
-						(
-							<Typography variant="caption" sx={{ display: 'inline-block' }}>
-								Step {activeStep + 1} already completed
-							</Typography>
-						) : (
-							<Button onClick={handleComplete}>
-								{completedSteps() === totalSteps() - 1
-									? 'Register'
-									: 'Complete Step'}
-							</Button>
-						)
-					)
-				} */}
 			</Box>
 		);
 	};

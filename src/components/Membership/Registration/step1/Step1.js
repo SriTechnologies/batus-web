@@ -4,7 +4,7 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { Paper, Box, Grid, TextField, Typography, Button } from '@mui/material';
 import { step1validations } from './validations/step1validations';
 
-const Step1 = ({ registrationData, steps, activeStep, completed, completedSteps, totalSteps, handleComplete, handleNext, handleBack, ...props }) => {
+const Step1 = ({ registrationData, setRegistrationData, steps, activeStep, completed, completedSteps, totalSteps, handleComplete, handleNext, handleBack, ...props }) => {
 	const {
 		register,
 		handleSubmit,
@@ -22,6 +22,12 @@ const Step1 = ({ registrationData, steps, activeStep, completed, completedSteps,
 
 	const onSubmit = data => {
 		console.log(JSON.stringify(data, null, 2));
+		console.log("Registration Data: " + JSON.stringify(registrationData, null, 2));
+		const regData = registrationData;
+		regData.username = data.username;
+		regData.password = data.password;
+		regData.mem_email = data.email;
+		setRegistrationData(regData);
 		handleNext();
 	};
 

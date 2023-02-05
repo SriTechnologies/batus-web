@@ -1,13 +1,12 @@
 import React, { Fragment } from 'react';
-import { useForm, Controller } from 'react-hook-form';
+import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { Paper, Box, Grid, TextField, Typography, FormControlLabel, Checkbox, Button } from '@mui/material';
+import { Paper, Box, Grid, TextField, Typography, Button } from '@mui/material';
 import { step5vaidations } from './validations/step5validations';
 
-const Step5 = ({ registrationData, steps, activeStep, completed, completedSteps, totalSteps, handleComplete, handleNext, handleBack, ...props }) => {
+const Step5 = ({ registrationData, setRegistrationData, steps, activeStep, completed, completedSteps, totalSteps, handleComplete, handleNext, handleBack, ...props }) => {
 	const {
 		register,
-		control,
 		handleSubmit,
 		formState: { errors }
 	} = useForm({
@@ -16,6 +15,8 @@ const Step5 = ({ registrationData, steps, activeStep, completed, completedSteps,
 
 	const onSubmit = data => {
 		console.log(JSON.stringify(data, null, 2));
+		console.log("Registration Data: " + JSON.stringify(registrationData, null, 2));
+		handleNext();
 	};
 
 	function FooterContent() {
@@ -30,21 +31,12 @@ const Step5 = ({ registrationData, steps, activeStep, completed, completedSteps,
 					Back
 				</Button>
 				<Box sx={{ flex: '1 1 auto' }} />
-				<Button onClick={handleNext} sx={{ mr: 1 }}>
+				<Button
+					onClick={handleSubmit(onSubmit)}
+					sx={{ mr: 1 }}
+				>
 					Next
 				</Button>
-				{activeStep !== steps.length &&
-					(completed[activeStep] ? (
-						<Typography variant="caption" sx={{ display: 'inline-block' }}>
-							Step {activeStep + 1} already completed
-						</Typography>
-					) : (
-						<Button onClick={handleComplete}>
-							{completedSteps() === totalSteps() - 1
-								? 'Finish'
-								: 'Complete Step'}
-						</Button>
-					))}
 			</Box>
 		);
 	};
@@ -53,133 +45,91 @@ const Step5 = ({ registrationData, steps, activeStep, completed, completedSteps,
 		return (
 			<Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'block' } }}>
 				<Typography variant="h6" align="center">
-					Create Username and Password
+					Member Address Details
 				</Typography>
 
 				<Grid container spacing={1} justifyContent={'center'}>
 					<Grid item xs={12} sm={12}>
 						<TextField
 							required
-							id="fullname"
-							name="fullname"
-							key={"fullname"}
-							label="Full Name"
+							id="address1"
+							name="address1"
+							key={"address1"}
+							label="Street Number & Name"
 							fullWidth
 							margin="dense"
-							{...register('fullname')}
-							error={errors.fullname ? true : false}
+							{...register('address1')}
+							error={errors.address1 ? true : false}
 							size='small'
 						/>
 						<Typography variant="inherit" color="textSecondary">
-							{errors.fullname?.message}
+							{errors.address1?.message}
+						</Typography>
+					</Grid>
+					<Grid item xs={12} sm={6}>
+						<TextField
+							id="address2"
+							name="address2"
+							label="Apt. Number"
+							fullWidth
+							margin="dense"
+							{...register('address2')}
+							error={errors.address2 ? true : false}
+							size='small'
+						/>
+						<Typography variant="inherit" color="textSecondary">
+							{errors.address2?.message}
 						</Typography>
 					</Grid>
 					<Grid item xs={12} sm={6}>
 						<TextField
 							required
-							id="username"
-							name="username"
-							label="Username"
+							id="city"
+							name="city"
+							label="City"
 							fullWidth
 							margin="dense"
-							{...register('username')}
-							error={errors.username ? true : false}
+							{...register('city')}
+							error={errors.city ? true : false}
 							size='small'
 						/>
 						<Typography variant="inherit" color="textSecondary">
-							{errors.username?.message}
+							{errors.city?.message}
 						</Typography>
 					</Grid>
 					<Grid item xs={12} sm={6}>
 						<TextField
 							required
-							id="email"
-							name="email"
-							label="Email"
+							id="state"
+							name="state"
+							label="State"
 							fullWidth
 							margin="dense"
-							{...register('email')}
-							error={errors.email ? true : false}
+							{...register('state')}
+							error={errors.state ? true : false}
 							size='small'
 						/>
 						<Typography variant="inherit" color="textSecondary">
-							{errors.email?.message}
+							{errors.state?.message}
 						</Typography>
 					</Grid>
 					<Grid item xs={12} sm={6}>
 						<TextField
 							required
-							id="password"
-							name="password"
-							label="Password"
-							type="password"
+							id="zipcode"
+							name="zipcode"
+							label="Zip Code"
 							fullWidth
 							margin="dense"
-							{...register('password')}
-							error={errors.password ? true : false}
+							{...register('zipcode')}
+							error={errors.zipcode ? true : false}
 							size='small'
 						/>
 						<Typography variant="inherit" color="textSecondary">
-							{errors.password?.message}
-						</Typography>
-					</Grid>
-					<Grid item xs={12} sm={6}>
-						<TextField
-							required
-							id="confirmPassword"
-							name="confirmPassword"
-							label="Confirm Password"
-							type="password"
-							fullWidth
-							margin="dense"
-							{...register('confirmPassword')}
-							error={errors.confirmPassword ? true : false}
-							size='small'
-						/>
-						<Typography variant="inherit" color="textSecondary">
-							{errors.confirmPassword?.message}
-						</Typography>
-					</Grid>
-					<Grid item xs={12}>
-						<FormControlLabel
-							control={
-								<Controller
-									control={control}
-									name="acceptTerms"
-									defaultValue="false"
-									inputRef={register()}
-									render={({ field: { onChange } }) => (
-										<Checkbox
-											color="primary"
-											onChange={e => onChange(e.target.checked)}
-										/>
-									)}
-								/>
-							}
-							label={
-								<Typography color={errors.acceptTerms ? 'error' : 'inherit'}>
-									I have read and agree to the Terms *
-								</Typography>
-							}
-						/>
-						<br />
-						<Typography variant="inherit" color="textSecondary">
-							{errors.acceptTerms
-								? '(' + errors.acceptTerms.message + ')'
-								: ''}
+							{errors.zipcode?.message}
 						</Typography>
 					</Grid>
 				</Grid>
-
-				<Box mt={3}>
-					<Button
-						variant="contained"
-						color="primary"
-						onClick={handleSubmit(onSubmit)}
-					>
-						Register
-					</Button>
-				</Box>
 			</Box>
 		);
 	};

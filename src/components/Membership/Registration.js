@@ -10,6 +10,7 @@ import Step2 from './Registration/step2/Step2';
 import Step3 from './Registration/step3/Step3';
 import Step4 from './Registration/step4/Step4';
 import Step5 from './Registration/step5/Steps5';
+import Step6 from './Registration/step6/Steps6';
 import { RegistrationData } from './Registration/model/RegistrationDataModel'
 const steps = ['Setup Credentials', 'Member Details', 'Gotra Details', 'Family Details', 'Contact Details', 'Liability agreement'];
 
@@ -41,6 +42,9 @@ export default function HorizontalNonLinearStepper() {
 				// find the first step that has been completed
 				steps.findIndex((step, i) => !(i in completed))
 				: activeStep + 1;
+		console.log("Total Step: " + steps.length);
+		console.log("Active Step: " + activeStep);
+		console.log("Next Active Step: " + newActiveStep);
 		setActiveStep(newActiveStep);
 	};
 
@@ -68,64 +72,70 @@ export default function HorizontalNonLinearStepper() {
 		switch (step) {
 			case 0:
 				return <Step1 registrationData={registrationData}
-				 steps={steps}
-				 activeStep={activeStep}
-				 completed={completed}
-				 completedSteps={completedSteps}
-				 totalSteps={totalSteps}
-				 handleComplete={handleComplete}
-				 handleNext={handleNext}
-				 handleBack={handleBack}/>;
+					setRegistrationData={setRegistrationData}
+					steps={steps}
+					activeStep={activeStep}
+					completed={completed}
+					completedSteps={completedSteps}
+					totalSteps={totalSteps}
+					handleComplete={handleComplete}
+					handleNext={handleNext}
+					handleBack={handleBack} />;
 			case 1:
 				return <Step2 registrationData={registrationData}
-				 steps={steps}
-				 activeStep={activeStep}
-				 completed={completed}
-				 completedSteps={completedSteps}
-				 totalSteps={totalSteps}
-				 handleComplete={handleComplete}
-				 handleNext={handleNext}
-				 handleBack={handleBack}/>;
+					setRegistrationData={setRegistrationData}
+					steps={steps}
+					activeStep={activeStep}
+					completed={completed}
+					completedSteps={completedSteps}
+					totalSteps={totalSteps}
+					handleComplete={handleComplete}
+					handleNext={handleNext}
+					handleBack={handleBack} />;
 			case 2:
 				return <Step3 registrationData={registrationData}
-				 steps={steps}
-				 activeStep={activeStep}
-				 completed={completed}
-				 completedSteps={completedSteps}
-				 totalSteps={totalSteps}
-				 handleComplete={handleComplete}
-				 handleNext={handleNext}
-				 handleBack={handleBack}/>;
+					setRegistrationData={setRegistrationData}
+					steps={steps}
+					activeStep={activeStep}
+					completed={completed}
+					completedSteps={completedSteps}
+					totalSteps={totalSteps}
+					handleComplete={handleComplete}
+					handleNext={handleNext}
+					handleBack={handleBack} />;
 			case 3:
 				return <Step4 registrationData={registrationData}
-				 steps={steps}
-				 activeStep={activeStep}
-				 completed={completed}
-				 completedSteps={completedSteps}
-				 totalSteps={totalSteps}
-				 handleComplete={handleComplete}
-				 handleNext={handleNext}
-				 handleBack={handleBack}/>;
+					setRegistrationData={setRegistrationData}
+					steps={steps}
+					activeStep={activeStep}
+					completed={completed}
+					completedSteps={completedSteps}
+					totalSteps={totalSteps}
+					handleComplete={handleComplete}
+					handleNext={handleNext}
+					handleBack={handleBack} />;
 			case 4:
 				return <Step5 registrationData={registrationData}
-				 steps={steps}
-				 activeStep={activeStep}
-				 completed={completed}
-				 completedSteps={completedSteps}
-				 totalSteps={totalSteps}
-				 handleComplete={handleComplete}
-				 handleNext={handleNext}
-				 handleBack={handleBack}/>;
+					setRegistrationData={setRegistrationData}
+					steps={steps}
+					activeStep={activeStep}
+					completed={completed}
+					completedSteps={completedSteps}
+					totalSteps={totalSteps}
+					handleComplete={handleComplete}
+					handleNext={handleNext}
+					handleBack={handleBack} />;
 			case 5:
-				return <Step5 registrationData={registrationData}
-				 steps={steps}
-				 activeStep={activeStep}
-				 completed={completed}
-				 completedSteps={completedSteps}
-				 totalSteps={totalSteps}
-				 handleComplete={handleComplete}
-				 handleNext={handleNext}
-				 handleBack={handleBack}/>;
+				return <Step6 registrationData={registrationData}
+					setRegistrationData={setRegistrationData}
+					steps={steps}
+					activeStep={activeStep}
+					completed={completed}
+					completedSteps={completedSteps}
+					totalSteps={totalSteps}
+					handleComplete={handleComplete}
+					handleNext={handleNext}
+					handleBack={handleBack} />;
 			default:
 				throw new Error("Unknow step");
 		}
@@ -147,7 +157,7 @@ export default function HorizontalNonLinearStepper() {
 				<Stepper activeStep={activeStep}>
 					{steps.map((label, index) => (
 						<Step key={label} completed={completed[index]}>
-							<StepButton  color="inherit" onClick={handleStep(index)}>
+							<StepButton color="inherit" onClick={handleStep(index)}>
 								{label}
 							</StepButton>
 						</Step>
@@ -167,7 +177,7 @@ export default function HorizontalNonLinearStepper() {
 					</React.Fragment>
 				) : (
 					<React.Fragment>
-						<Box sx={{ mx:20 }}>
+						<Box sx={{ mx: 20 }}>
 							{getStepContent(activeStep)}
 						</Box>
 					</React.Fragment>

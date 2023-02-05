@@ -4,7 +4,7 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { Paper, Box, Grid, TextField, Typography, FormControlLabel, Button, FormControl, FormLabel, RadioGroup, Radio, InputLabel, Select, MenuItem } from '@mui/material';
 import { step4vaidations } from './validations/step4validations';
 
-const Step4 = ({ registrationData, steps, activeStep, completed, completedSteps, totalSteps, handleComplete, handleNext, handleBack, ...props }) => {
+const Step4 = ({  registrationData, setRegistrationData, steps, activeStep, completed, completedSteps, totalSteps, handleComplete, handleNext, handleBack, ...props }) => {
 	const {
 		register,
 		handleSubmit,
@@ -12,7 +12,7 @@ const Step4 = ({ registrationData, steps, activeStep, completed, completedSteps,
 	} = useForm({
 		resolver: yupResolver(step4vaidations)
 	});
-
+ 
 	const [maritalStatusValue, setMaritalStatusValue] = React.useState('');
 	const [childCount, setChildCount] = React.useState(0);
 
@@ -27,6 +27,18 @@ const Step4 = ({ registrationData, steps, activeStep, completed, completedSteps,
 
 	const onSubmit = data => {
 		console.log(JSON.stringify(data, null, 2));
+		console.log("Registration Data: " + JSON.stringify(registrationData, null, 2));
+		if (maritalStatusValue === 2) {
+			const regData = registrationData;
+			regData.spouse_firstname = data.s_firstname;
+			regData.spouse_lastname =  data.s_lastname;
+			regData.spouse_maiden_name = data.s_maidenname;
+			regData.spouse_middlename =  data.s_middlename
+			regData.spouse_dob =  data.s_dob;
+			regData.spouse_maiden_gotra = data.s_gotram;
+			setRegistrationData(regData);
+		}
+		handleNext();
 	};
 
 	function ChildrenDetails() {
@@ -45,6 +57,7 @@ const Step4 = ({ registrationData, steps, activeStep, completed, completedSteps,
 							id={`c_firstname_${index}`}
 							name={`c_firstname_${index}`}
 							key={`c_firstname_${index}`}
+							{...register(`c_${index}_firstname`)}
 							label="First Name"
 							fullWidth
 							margin="dense"
@@ -57,6 +70,7 @@ const Step4 = ({ registrationData, steps, activeStep, completed, completedSteps,
 							id={`c_middlename_${index}`}
 							name={`c_middlename_${index}`}
 							key={`c_middlename_${index}`}
+							{...register(`c_${index}_middlename`)}
 							label="Middle Name"
 							fullWidth
 							margin="dense"
@@ -69,6 +83,7 @@ const Step4 = ({ registrationData, steps, activeStep, completed, completedSteps,
 							id={`c_lastname_${index}`}
 							name={`c_lastname_${index}`}
 							key={`c_lastname_${index}`}
+							{...register(`c_${index}_lastname`)}
 							label="Last Name"
 							fullWidth
 							margin="dense"
@@ -81,6 +96,7 @@ const Step4 = ({ registrationData, steps, activeStep, completed, completedSteps,
 							id={`c_age_${index}`}
 							name={`c_age_${index}`}
 							key={`c_age_${index}`}
+							{...register(`c_${index}_age`)}
 							label="Age"
 							fullWidth
 							margin="dense"
@@ -216,6 +232,22 @@ const Step4 = ({ registrationData, steps, activeStep, completed, completedSteps,
 							<Grid item xs={12} sm={12}>
 								<TextField
 									required
+									id="s_dob"
+									name="s_dob"
+									label="Date of Birth"
+									fullWidth
+									margin="dense"
+									{...register('s_dob')}
+									error={errors.s_dob ? true : false}
+									size='small'
+								/>
+								<Typography variant="inherit" color="textSecondary">
+									{errors.s_dob?.message}
+								</Typography>
+							</Grid>
+							<Grid item xs={12} sm={12}>
+								<TextField
+									required
 									id="s_gotram"
 									name="s_gotram"
 									label="Maiden Gotram"
@@ -226,7 +258,7 @@ const Step4 = ({ registrationData, steps, activeStep, completed, completedSteps,
 									size='small'
 								/>
 								<Typography variant="inherit" color="textSecondary">
-									{errors.s_lastname?.message}
+									{errors.s_gotram?.message}
 								</Typography>
 							</Grid>
 
