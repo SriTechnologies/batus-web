@@ -2,6 +2,7 @@
 // create a react js material ui form for RegistrationData
 
 export const RegistrationData = (
+	referredBy = "",
 	username = "",
 	password = "",
 	mem_email = "",
@@ -29,6 +30,7 @@ export const RegistrationData = (
 	tncAccepted = false,
 ) => {
 	return {
+		referredBy: referredBy,
 		username: username,
 		password: password,
 		mem_email: mem_email,

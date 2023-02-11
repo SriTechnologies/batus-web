@@ -24,6 +24,7 @@ const Step1 = ({ registrationData, setRegistrationData, steps, activeStep, compl
 		console.log(JSON.stringify(data, null, 2));
 		console.log("Registration Data: " + JSON.stringify(registrationData, null, 2));
 		const regData = registrationData;
+		regData.referredBy = data.referredBy;
 		regData.username = data.username;
 		regData.password = data.password;
 		regData.mem_email = data.email;
@@ -43,7 +44,7 @@ const Step1 = ({ registrationData, setRegistrationData, steps, activeStep, compl
 					Back
 				</Button>
 				<Box sx={{ flex: '1 1 auto' }} />
-				<Button 
+				<Button
 					onClick={handleSubmit(onSubmit)}
 					sx={{ mr: 1 }}
 					disabled={!isDirty || !isValid}
@@ -61,12 +62,32 @@ const Step1 = ({ registrationData, setRegistrationData, steps, activeStep, compl
 					Create Username and Password
 				</Typography>
 
-				<Grid container spacing={1} justifyContent={'center'}>
+				<Grid container spacing={2} justifyContent={'left'}>
+					<Grid item xs={12} sm={6}>
+						<TextField
+							required
+							id="referredBy"
+							key="referredBy"
+							name="referredBy"
+							label="Referred By"
+							fullWidth
+							margin="dense"
+							{...register('referredBy')}
+							error={errors.referredBy ? true : false}
+							size='small'
+						/>
+						<Typography variant="inherit" color="textSecondary">
+							{errors.referredBy?.message}
+						</Typography>
+					</Grid>
+				</Grid>
+
+				<Grid container spacing={2} justifyContent={'center'}>
 					<Grid item xs={12} sm={6}>
 						<TextField
 							required
 							id="username"
-							key={"username"}
+							key="username"
 							name="username"
 							label="Username"
 							fullWidth
@@ -83,7 +104,7 @@ const Step1 = ({ registrationData, setRegistrationData, steps, activeStep, compl
 						<TextField
 							required
 							id="email"
-							key={"email"}
+							key="email"
 							name="email"
 							label="Email"
 							fullWidth
@@ -100,7 +121,7 @@ const Step1 = ({ registrationData, setRegistrationData, steps, activeStep, compl
 						<TextField
 							required
 							id="password"
-							key={"password"}
+							key="password"
 							name="password"
 							label="Password"
 							type="password"
@@ -118,7 +139,7 @@ const Step1 = ({ registrationData, setRegistrationData, steps, activeStep, compl
 						<TextField
 							required
 							id="confirmPassword"
-							key={"confirmPassword"}
+							key="confirmPassword"
 							name="confirmPassword"
 							label="Confirm Password"
 							type="password"
@@ -138,12 +159,14 @@ const Step1 = ({ registrationData, setRegistrationData, steps, activeStep, compl
 	};
 
 	return (
-		<Fragment>
-			<Paper sx={{ m: 5, p: 5 }}>
-				<BodyContent />
-				<FooterContent />
-			</Paper>
-		</Fragment>
+		<div key="step1">
+			<Fragment>
+				<Paper sx={{ m: 5, p: 5 }}>
+					{BodyContent()}
+					{FooterContent()}
+				</Paper>
+			</Fragment>
+		</div>
 	);
 }
 

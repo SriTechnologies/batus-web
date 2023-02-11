@@ -294,12 +294,14 @@ const Step4 = ({  registrationData, setRegistrationData, steps, activeStep, comp
 	};
 
 	return (
+		<div key="step4">
 		<Fragment>
 			<Paper sx={{ m: 5, p: 5 }}>
-				<BodyContent />
-				<FooterContent />
+				{BodyContent()}
+				{FooterContent()}
 			</Paper>
 		</Fragment>
+		</div>
 	);
 
 }

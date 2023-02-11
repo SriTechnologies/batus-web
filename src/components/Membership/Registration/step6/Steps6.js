@@ -190,12 +190,14 @@ const Step6 = ({ registrationData, setRegistrationData, steps, activeStep, compl
 	};
 
 	return (
+		<div key="step6">
 		<Fragment>
 			<Paper sx={{ m: 5, p: 5 }}>
-				<BodyContent />
-				<FooterContent />
+				{BodyContent()}
+				{FooterContent()}
 			</Paper>
 		</Fragment>
+		</div>
 	);
 
 }

@@ -1,6 +1,8 @@
+/* eslint eqeqeq: 0 */
 import React, { Fragment } from 'react';
 import { FormControl, FormLabel, FormControlLabel, RadioGroup, Radio, Select, InputLabel, MenuItem, OutlinedInput, Paper, Typography, Grid, Button, TextField } from '@mui/material';
 import gotra_data from '../../../../data/gotras.json';
+import gotralist from '../../../../data/gotralist.json';
 import { Box } from '@mui/system';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
@@ -9,13 +11,17 @@ import { step3validations } from './validations/step3validations';
 const Step3 = ({ registrationData, setRegistrationData, steps, activeStep, completed, completedSteps, totalSteps, handleComplete, handleNext, handleBack, ...props }) => {
 	const {
 		register,
+		watch,
+		formState: { errors },
 		handleSubmit,
-		formState: { errors }
 	} = useForm({
 		resolver: yupResolver(step3validations),
 	});
 
 	const [error, setError] = React.useState(false);
+	const [gotra_list] = React.useState(gotralist.gotras);
+	const [selectedGotra, setSelectedGotra] = React.useState("");
+	const otherGotra = watch("other_gotra", "");
 	// const [helperText, setHelperText] = React.useState('Choose number of Rishis:');
 	const [rishiCount, setRishiCount] = React.useState(0);
 	// const [pravaktas, setPravaktas] = React.useState([{ name: '', ganas: [{ name: '', rishis: [] }] }]);
@@ -25,6 +31,11 @@ const Step3 = ({ registrationData, setRegistrationData, steps, activeStep, compl
 	const [ganaSelected, setGanaSelected] = React.useState(false);
 	const [ganaIndex, setGanaIndex] = React.useState(-1);
 	const [rishis, setRishis] = React.useState([]);
+
+	const handleGotraChange = (event, index) => {
+		console.log("Selected Gotra: " + event.target.value);
+		setSelectedGotra(event.target.value);
+	};
 
 	const handlePravaktaChange = (event, index) => {
 		// const updatedPravaktas = [...pravaktas];
@@ -172,7 +183,7 @@ const Step3 = ({ registrationData, setRegistrationData, steps, activeStep, compl
 
 	function RishiCountForm() {
 		return (
-			<FormControl error={error}>
+			<FormControl error={error} disabled={selectedGotra == "" || selectedGotra == "Unknown"}>
 				<FormLabel id="rishi-count-label">Number of Rishis in your Gotram</FormLabel>
 				<RadioGroup
 					row
@@ -197,11 +208,61 @@ const Step3 = ({ registrationData, setRegistrationData, steps, activeStep, compl
 		);
 	};
 
+	function GotraSelectionForm() {
+		return (
+			<FormControl sx={{ m: 1, width: 300 }} size="small" key="gotra_selection_form">
+				<InputLabel id="gotra-label" required>Gotram</InputLabel>
+				<Select
+					required
+					labelId='gotra-label'
+					id='gotra-selection-list'
+					onChange={(e) => handleGotraChange(e)}
+					value={selectedGotra == "" ? "" : selectedGotra}
+					defaultValue={selectedGotra}
+					displayEmpty
+					input={<OutlinedInput label="Select Gotram" />}
+				>
+					{gotra_list.map((gotram_name) => (
+						<MenuItem
+							key={gotram_name}
+							value={gotram_name}
+						>
+							{gotram_name}
+						</MenuItem>
+					))}
+				</Select>
+				{selectedGotra == "Other" &&
+					<Grid item xs={12} sm={12}>
+						<TextField
+							required
+							id="other_gotra"
+							key="other_gotra"
+							name="other_gotra"
+							label="Enter your Gotram"
+							fullWidth
+							margin="dense"
+							{...register('other_gotra')}
+							error={errors.other_gotra ? true : false}
+							size='small'
+						/>
+						<Typography variant="inherit" color="textSecondary">
+							{errors.other_gotra?.message}
+						</Typography>
+					</Grid>
+				}
+			</FormControl>
+		);
+	};
+
 	const onSubmit = data => {
 		console.log(JSON.stringify(data, null, 2));
 		console.log("Registration Data: " + JSON.stringify(registrationData, null, 2));
 		const regData = registrationData;
-		regData.gotra = data.gotram;
+		if (selectedGotra == "Other") {
+			regData.gotra = data.other_gotra;
+		} else {
+			regData.gotra = selectedGotra;
+		}
 		regData.rishis = rishis;
 		setRegistrationData(regData);
 		handleNext();
@@ -222,22 +283,10 @@ const Step3 = ({ registrationData, setRegistrationData, steps, activeStep, compl
 				<Button
 					onClick={handleSubmit(onSubmit)}
 					sx={{ mr: 1 }}
-					disabled={rishis.length < 1}
+					disabled={((selectedGotra == "") || (selectedGotra == "Other" && otherGotra == ""))}
 				>
 					Next
 				</Button>
-				{/* {activeStep !== steps.length &&
-					(completed[activeStep] ? (
-						<Typography variant="caption" sx={{ display: 'inline-block' }}>
-							Step {activeStep + 1} already completed
-						</Typography>
-					) : (
-						<Button onClick={handleComplete}>
-							{completedSteps() === totalSteps() - 1
-								? 'Register'
-								: 'Complete Step'}
-						</Button>
-					))} */}
 			</Box>
 		);
 	};
@@ -251,36 +300,22 @@ const Step3 = ({ registrationData, setRegistrationData, steps, activeStep, compl
 
 				<Grid container spacing={2} mt={5} mb={5} justifyContent={'center'}>
 					<Grid item xs={12} sm={12}>
-						<TextField
-							required
-							id="gotram"
-							name="gotram"
-							key="gotram"
-							label="Enter your Gotram"
-							fullWidth
-							margin="dense"
-							{...register('gotram')}
-							error={errors.gotram ? true : false}
-							size='small'
-						/>
-						<Typography variant="inherit" color="textSecondary">
-							{errors.gotram?.message}
-						</Typography>
+						{GotraSelectionForm()}
 					</Grid>
 
 					<Grid item xs={12} sm={12}>
-						<RishiCountForm />
+						{ RishiCountForm() }
 					</Grid>
 
 					<Grid item xs={12} sm={12}>
 						{rishiCount > 0 &&
-							<RishiSelectionForm />
+							RishiSelectionForm()
 						}	
 						{rishiCount > 0 && pravaktaSelected === true &&
-							<CreateGanaLists />
+							CreateGanaLists()
 						}
 						{rishiCount > 0 && pravaktaSelected === true && ganaSelected === true &&
-							<CreateRishiLists />
+							CreateRishiLists()
 						}
 					</Grid>
 				</Grid>
@@ -289,12 +324,14 @@ const Step3 = ({ registrationData, setRegistrationData, steps, activeStep, compl
 	};
 
 	return (
+		<div key="step3">
 		<Fragment>
 			<Paper sx={{ m: 5, p: 5 }}>
-				<BodyContent />
-				<FooterContent />
+					{BodyContent()}
+					{FooterContent()}
 			</Paper>
 		</Fragment>
+		</div>
 	);
 }
 
