@@ -31,10 +31,10 @@ const firebaseConfig = {
 	projectId: "batus-925ac",
 	storageBucket: "batus-925ac.appspot.com",
 	messagingSenderId: "211406468016",
-	appId: "1:211406468016:web:fcd60043998fd5cb681c75",
-	measurementId: "G-YR7SLK7J7Q"
-};
-
+	appId: "1:211406468016:web:bf3aa3a71bddc30b681c75",
+	measurementId: "G-3G8SVLG5B2"
+  };
+  
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
 const analytics = getAnalytics(app);
