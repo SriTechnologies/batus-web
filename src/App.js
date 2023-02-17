@@ -23,27 +23,28 @@ import Header from './components/Header/Header';
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
 import { getAnalytics } from "firebase/analytics";
+import { getFirestore } from "firebase/firestore";
 import { Component } from 'react';
 
 const firebaseConfig = {
-	apiKey: "AIzaSyCtMJVlqCUfURlDHSyLNI04gCV41VXaQGc",
-	authDomain: "batus-925ac.firebaseapp.com",
-	projectId: "batus-925ac",
-	storageBucket: "batus-925ac.appspot.com",
-	messagingSenderId: "211406468016",
-	appId: "1:211406468016:web:bf3aa3a71bddc30b681c75",
-	measurementId: "G-3G8SVLG5B2"
+	apiKey: process.env.REACT_APP_FB_API_KEY,
+	authDomain: process.env.REACT_APP_FB_AUTH_DOMAIN,
+	projectId: process.env.REACT_APP_FB_PROJECT_ID,
+	storageBucket: process.env.REACT_APP_FB_STORAGE_BUCKET,
+	messagingSenderId: process.env.REACT_APP_FB_MSG_SENDER_ID,
+	appId: process.env.REACT_APP_FB_APP_ID,
+	measurementId: process.env.REACT_APP_FB_MEASUREMENT_ID
   };
-  
+ 
 // Initialize Firebase
-const app = initializeApp(firebaseConfig);
-const analytics = getAnalytics(app);
+const fbApp = initializeApp(firebaseConfig);
+const fbAnalytics = getAnalytics(fbApp);
+const fbDB = getFirestore(fbApp);
 
 class App extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-
 		}
 	}
 
@@ -65,7 +66,7 @@ class App extends Component {
 							<Route path="/annualevents" element={<AnnualEvents />} />
 							<Route path="/monthlyevents" element={<MonthlyEvents />} />
 							<Route path="/membership" element={<Membership />} />
-							<Route path="/registration" element={<Registration />} />
+							<Route path="/registration" element={<Registration db={fbDB}/>} />
 							<Route path="/volunteer" element={<Volunteer />} />
 							<Route path="/contactus" element={<ContactUs />} />
 							<Route path="/login" element={<LoginPage />} />

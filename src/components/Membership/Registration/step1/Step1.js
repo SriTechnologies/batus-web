@@ -47,7 +47,7 @@ const Step1 = ({ registrationData, setRegistrationData, steps, activeStep, compl
 				<Button
 					onClick={handleSubmit(onSubmit)}
 					sx={{ mr: 1 }}
-					disabled={!isDirty || !isValid}
+					// disabled={!isDirty || !isValid}
 				>
 					Next
 				</Button>

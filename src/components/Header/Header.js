@@ -9,10 +9,13 @@ import banner_background from '../../images/banner-background.png';
 export default function Header() {
 
 	const bannerStyle = {
+		width: '100%',
 		backgroundImage: `url(${banner_background})`,
 		backgroundSize: 'cover',
 		backgroundPosition: 'center',
 		backgroundRepeat: 'no-repeat',
+		display: 'flex',
+		justifyContent: 'center',
 	};
 
 	return (
