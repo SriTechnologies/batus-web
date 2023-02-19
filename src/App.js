@@ -19,12 +19,15 @@ import ContactUs from './components/ContactUs/ContactUs';
 import ErrorPage from './components/Error/Error';
 import LoginPage from './components/Login/Login';
 import Header from './components/Header/Header';
+import PaymentSuccess from "./components/Membership/Registration/step6/PaymentSuccess";
+import PaymentFailure from "./components/Membership/Registration/step6/PaymentFailure";
 
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
 import { getAnalytics } from "firebase/analytics";
 import { getFirestore } from "firebase/firestore";
 import { Component } from 'react';
+import { getAuth } from 'firebase/auth';
 
 const firebaseConfig = {
 	apiKey: process.env.REACT_APP_FB_API_KEY,
@@ -39,12 +42,13 @@ const firebaseConfig = {
 // Initialize Firebase
 const fbApp = initializeApp(firebaseConfig);
 const fbAnalytics = getAnalytics(fbApp);
-const fbDB = getFirestore(fbApp);
 
 class App extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
+			auth: getAuth(fbApp),
+			dbStore: getFirestore(fbApp)
 		}
 	}
 
@@ -66,11 +70,13 @@ class App extends Component {
 							<Route path="/annualevents" element={<AnnualEvents />} />
 							<Route path="/monthlyevents" element={<MonthlyEvents />} />
 							<Route path="/membership" element={<Membership />} />
-							<Route path="/registration" element={<Registration db={fbDB}/>} />
+							<Route path="/registration" element={<Registration db={this.state.dbStore}/>} />
 							<Route path="/volunteer" element={<Volunteer />} />
 							<Route path="/contactus" element={<ContactUs />} />
 							<Route path="/login" element={<LoginPage />} />
 							<Route path="/createaccount" element={<CreateAccount />} />
+							<Route path="/paymentSuccess" element={<PaymentSuccess />} />
+							<Route path="/paymentFailure" element={<PaymentFailure />} />
 							<Route path="*" element={<ErrorPage />} />
 						</Routes>
 					</div>

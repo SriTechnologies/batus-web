@@ -9,10 +9,9 @@ import { Stack } from '@mui/system';
 import dayjs from 'dayjs';
 import DropIn from "braintree-web-drop-in-react";
 import axios from "axios";
-import { useEffect, useState } from "react";
-import useUser from "../../../../hooks/useUser";
+import { useNavigate } from "react-router-dom";
 
-const Step6 = ({ registrationData, setRegistrationData, steps, activeStep, completed, completedSteps, totalSteps, handleComplete, handleNext, handleBack, ...props }) => {
+const Step6 = ({ registrationData, setRegistrationData, steps, activeStep, completed, completedSteps, totalSteps, handleComplete, handleNext, handleBack, authHeaders, ...props }) => {
 	const {
 		register,
 		control,
@@ -22,18 +21,22 @@ const Step6 = ({ registrationData, setRegistrationData, steps, activeStep, compl
 		resolver: yupResolver(step6vaidations)
 	});
 
-	const { user, isLoading } = useUser();
 	const descriptionElementRef = React.useRef(null);
 	const [clientToken, setClientToken] = React.useState("");
 	const [instance, setInstance] = React.useState();
 	const [openLiabilityDialog, setOpenLiabilityDialog] = React.useState(false);
 	const [scroll, setScroll] = React.useState('paper');
+	const navi = useNavigate();
 
 	React.useEffect(() => {
-		if (clientToken === "") {
-			getToken();
-		}
-	});
+		const getToken = async () => {
+			console.log("Auth Headers " + JSON.stringify(authHeaders));
+			const token = await axios.get(`${process.env.REACT_APP_BAT_SERVER_HOST}/api/generatetoken`, {headers: authHeaders})
+			console.log("BT Token retrieved from server " + JSON.stringify(token.data));
+			setClientToken(token.data);
+		};
+		getToken();
+	}, [authHeaders, setClientToken]);
 
 	React.useEffect(() => {
 		if (openLiabilityDialog) {
@@ -45,19 +48,6 @@ const Step6 = ({ registrationData, setRegistrationData, steps, activeStep, compl
 	}, [openLiabilityDialog]);
 
 	const [today, setToday] = React.useState(dayjs());
-
-	const getToken = async () => {
-		const token = user && await user.getIdToken();
-		console.log('user token: ' + token);
-		const headers = token ? {
-			authtoken: token
-		} : {};
-		if (headers !== "") {
-			const token = await axios.get('http://localhost:8989/api/generatetoken', { headers })
-			console.log("BT Token retrieved from server " + JSON.stringify(token.data));
-			setClientToken(token.data);
-		}
-	};
 
 	const onSubmit = data => {
 		console.log(JSON.stringify(data, null, 2));
@@ -72,6 +62,38 @@ const Step6 = ({ registrationData, setRegistrationData, steps, activeStep, compl
 	const handleCloseLiabilityDialog = () => {
 		setOpenLiabilityDialog(false);
 	};
+
+	const handleFeePayment = async () => {
+		const { nonce } = await instance.requestPaymentMethod();
+		const paymentData = {
+			nonce: nonce,
+			amount: 200
+		}
+		await axios.post(`${process.env.REACT_APP_BAT_SERVER_HOST}/api/checkout`, paymentData, {headers: authHeaders})
+			.then((response) => {
+				const {transaction, success} = response.data;
+				if (response.status === 200 && success && transaction.id) {
+					console.log("Payment Success - Transaction ID: " + transaction.id);
+					navi(
+						'/paymentSuccess',
+						{state: { tranStatus: " SUCCESS, Transaction ID: " + transaction.id }}
+					);
+				} else {
+					console.log("Payment failed status: " + transaction.status);
+					navi(
+						'/paymentFailure',
+						{state: { tranStatus:  transaction.status }},
+					);
+				}
+			})
+			.catch((error) => {
+				console.log("Payment Response error: " + error);
+				navi(
+					'/paymentFailure',
+					{state: { tranStatus:  error }},
+				);
+		});
+	}
 
 	function LiabilityForm() {
 		return (
@@ -206,6 +228,9 @@ const Step6 = ({ registrationData, setRegistrationData, steps, activeStep, compl
 											views={['year', 'month', 'day']}
 											label="Date"
 											value={today}
+											onChange={(newValue) => {
+												setToday(newValue);
+											}}
 											disabled
 											renderInput={(params) =>
 												<TextField
@@ -260,17 +285,23 @@ const Step6 = ({ registrationData, setRegistrationData, steps, activeStep, compl
 						<Grid container>
 							<Grid item>
 								{clientToken &&
-									<DropIn
-										options={{
-											authorization: clientToken,
-											card: {
-												cardholderName: {
-													required: true
+									<Box>
+										<DropIn
+											options={{
+												authorization: clientToken,
+												card: {
+													cardholderName: {
+														required: true
+													}
 												}
-											}
-										}}
-										onInstance={(instance) => setInstance(instance)}
-									/>
+											}}
+											onInstance={(instance) => setInstance(instance)}
+										/>
+										<Button
+											onClick={(e) => handleFeePayment(e)}>
+											Pay Membership Fees
+										</Button>
+									</Box>
 								}
 							</Grid>
 						</Grid>

@@ -12,9 +12,31 @@ import Step4 from './Registration/step4/Step4';
 import Step5 from './Registration/step5/Steps5';
 import Step6 from './Registration/step6/Steps6';
 import { RegistrationData } from './Registration/model/RegistrationDataModel'
+import { useEffect } from "react";
+import useUser from "../../hooks/useUser";
+
 const steps = ['Setup Credentials', 'Member Details', 'Gotra Details', 'Family Details', 'Contact Details', 'Liability agreement'];
 
 export default function HorizontalNonLinearStepper() {
+	const { user } = useUser();
+	const [authHeaders, setAuthHeaders] = React.useState(null);
+
+	useEffect(() => {
+		const checkUserToken = async () => {
+			const token = user && await user.getIdToken();
+			console.log('user token: ' + token);
+			const headers = token ? { 
+				authtoken: token
+			} : null;
+			if (headers) {
+				setAuthHeaders(headers);
+			}
+		}
+
+		checkUserToken();
+
+	},[user, setAuthHeaders]);
+
 	const [activeStep, setActiveStep] = React.useState(0);
 	const [completed, setCompleted] = React.useState({});
 	const [registrationData, setRegistrationData] = React.useState(new RegistrationData());
@@ -135,7 +157,8 @@ export default function HorizontalNonLinearStepper() {
 					totalSteps={totalSteps}
 					handleComplete={handleComplete}
 					handleNext={handleNext}
-					handleBack={handleBack} />;
+					handleBack={handleBack}
+					authHeaders={authHeaders} />;
 			default:
 				throw new Error("Unknow step");
 		}

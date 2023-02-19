@@ -1,11 +1,10 @@
 import React from 'react';
 import axios from "axios";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import useUser from "../../hooks/useUser";
 
-
 const HomePage = () => {
-	const { user, isLoading } = useUser();
+	const { user } = useUser();
 
 	useEffect(() => {
 		const checkUserToken = async () => {
@@ -15,11 +14,11 @@ const HomePage = () => {
 				authtoken: token
 			} : {};
 			if (headers !== "" ) {
-				const res = await axios.get('http://localhost:8989/api/hello', { headers })
+				const res = await axios.get(`${process.env.REACT_APP_BAT_SERVER_HOST}/api/hello`, { headers })
 			}
 		}
 		checkUserToken();
-	});
+	},[user]);
 
 	return (
 		<h1>Home page</h1>
