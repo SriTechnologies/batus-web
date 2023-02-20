@@ -27,6 +27,7 @@
     "dayjs": "^1.11.7",
     "express": "^4.18.2",
     "firebase": "^9.17.1",
+    "firebase-functions": "^4.2.1",
     "material-ui-popup-state": "^5.0.4",
     "moment": "^2.29.4",
     "mui": "^0.0.1",
@@ -50,6 +51,7 @@
     "clean": "rimraf ./build/*",
     "start": "react-scripts start",
     "build": "react-scripts build",
+	"build-env": "env-cmd -f .env npm run build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
@@ -70,5 +72,8 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "env-cmd": "^10.1.0"
   }
 }

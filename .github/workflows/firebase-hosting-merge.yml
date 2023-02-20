@@ -7,6 +7,20 @@ name: Deploy to Firebase Hosting on merge
     branches:
       - main
 jobs:
+  create_env_file:
+    runs-on: ubuntu-latest
+    steps:
+      - run: |
+          touch .env
+          echo REACT_APP_FB_API_KEY=${{ secrets.REACT_APP_FB_API_KEY }} >> .env
+          echo REACT_APP_FB_AUTH_DOMAIN=${{ secrets.REACT_APP_FB_AUTH_DOMAIN }} >> .env
+          echo REACT_APP_FB_PROJECT_ID=${{ secrets.REACT_APP_FB_PROJECT_ID }} >> .env
+          echo REACT_APP_FB_STORAGE_BUCKET=${{ secrets.REACT_APP_FB_STORAGE_BUCKET }} >> .env
+          echo REACT_APP_FB_MSG_SENDER_ID=${{ secrets.REACT_APP_FB_MSG_SENDER_ID }} >> .env
+          echo REACT_APP_FB_APP_ID=${{ secrets.REACT_APP_FB_APP_ID }} >> .env
+          echo REACT_APP_FB_MEASUREMENT_ID=${{ secrets.REACT_APP_FB_MEASUREMENT_ID }} >> .env
+          echo REACT_APP_BAT_SERVER_HOST=${{ secrets.REACT_APP_BAT_SERVER_HOST }} >> .env
+
   build_and_deploy:
     runs-on: ubuntu-latest
     steps:
