@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import './App.css';
 import HomePage from './components/HomePage/HomePage';
 import AboutBat from './components/AboutUs/AboutBat';
@@ -21,41 +21,70 @@ import LoginPage from './components/Login/Login';
 import Header from './components/Header/Header';
 import PaymentSuccess from "./components/Membership/Registration/step6/PaymentSuccess";
 import PaymentFailure from "./components/Membership/Registration/step6/PaymentFailure";
+// import { FirebaseContext } from './AuthContext';
+import {AuthProvider} from './AuthContext';
 
-// Import the functions you need from the SDKs you need
-import { initializeApp } from "firebase/app";
-import { getAnalytics } from "firebase/analytics";
-import { getFirestore } from "firebase/firestore";
-import { Component } from 'react';
-import { getAuth } from 'firebase/auth';
-
-const firebaseConfig = {
-	apiKey: process.env.REACT_APP_FB_API_KEY,
-	authDomain: process.env.REACT_APP_FB_AUTH_DOMAIN,
-	projectId: process.env.REACT_APP_FB_PROJECT_ID,
-	storageBucket: process.env.REACT_APP_FB_STORAGE_BUCKET,
-	messagingSenderId: process.env.REACT_APP_FB_MSG_SENDER_ID,
-	appId: process.env.REACT_APP_FB_APP_ID,
-	measurementId: process.env.REACT_APP_FB_MEASUREMENT_ID
-  };
- 
-// Initialize Firebase
-const fbApp = initializeApp(firebaseConfig);
-const fbAnalytics = getAnalytics(fbApp);
-
-class App extends Component {
+class BATApp extends React.Component {
+/*	
 	constructor(props) {
+		console.log("Constructor >>>>>");
 		super(props);
 		this.state = {
-			auth: getAuth(fbApp),
-			dbStore: getFirestore(fbApp)
+			authUser: null,
+			authToken: null,
+			authHeaders: null,
+			isLoading: true,
 		}
+		console.log("Constructor <<<<<<");
 	}
 
+	componentDidMount = async () => {
+		console.log("compnent did mount >>>>>");
+		this.listener = this.props.firebase.auth.onAuthStateChanged( async (currentUser) => {
+			if (currentUser !== null) {
+				try {
+					this.setState({ authUser: currentUser });
+					console.log("currentUser: " + currentUser);
+					const token = await currentUser.getIdToken(true);
+					console.log("User Token: " + token);
+					this.setState({ authToken: token });
+					const headers = token ? {
+						authtoken: token
+					} : null;
+					console.log("AuthHeaders: " + JSON.stringify(headers));
+					if (headers) {
+						this.setState({ authHeaders: headers });
+					}
+					if (this.state.isLoading === true) {
+						this.setState({ isLoading: false });
+					}
+				} catch (error) {
+					console.log(error);
+				}
+			} else {
+				this.setState({ authUser: null });
+				this.setState({ authToken: null });
+				this.setState({ authHeaders: null });
+			}
+		});
+		console.log("compnent did mount <<<<<<");
+	}
+
+	componentWillUnmount() {
+		this.listener();
+	}
+*/
+
 	render() {
+		// console.log("render >>>>>");
+		// if (this.state.isLoading === true) {
+		// 	return null;
+		// }
+		// console.log("Actual render >>>>>");
 		return (
 			<div>
-				<BrowserRouter>
+				<Router>
+					<AuthProvider>
 					<Header />
 					<div className="container">
 						<Routes>
@@ -70,7 +99,7 @@ class App extends Component {
 							<Route path="/annualevents" element={<AnnualEvents />} />
 							<Route path="/monthlyevents" element={<MonthlyEvents />} />
 							<Route path="/membership" element={<Membership />} />
-							<Route path="/registration" element={<Registration db={this.state.dbStore}/>} />
+							<Route path="/registration" element={<Registration />} />
 							<Route path="/volunteer" element={<Volunteer />} />
 							<Route path="/contactus" element={<ContactUs />} />
 							<Route path="/login" element={<LoginPage />} />
@@ -80,10 +109,12 @@ class App extends Component {
 							<Route path="*" element={<ErrorPage />} />
 						</Routes>
 					</div>
-				</BrowserRouter>
+					</AuthProvider>
+				</Router>
 			</div>
 		);
 	}
 }
 
-export default App;
+// export default FirebaseContext(BATApp);
+export default BATApp;

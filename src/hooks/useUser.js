@@ -1,19 +1,25 @@
 import { useState, useEffect } from "react"
-import { getAuth, onAuthStateChanged } from "firebase/auth";
+import { onAuthStateChanged } from "firebase/auth";
 
 const useUser = () => {
-	const [user, setUser] =  useState(null);
-	const [isLoading, setIsLoading] = useState(true);
+	const [user, setUser] =  useState( () =>
+		JSON.parse(localStorage.getItem('authUser') || '{}')
+	);
 
 	useEffect( () => {
-		const unsubscribe = onAuthStateChanged(getAuth(), user => {
-			setUser(user);
-			setIsLoading(false);
+		const unsubscribe = onAuthStateChanged((authUser) => {
+			if (authUser) {
+				localStorage.setItem('authUser', JSON.stringify(authUser));
+				setUser(user);
+			} else {
+				localStorage.removeItem('authUser');
+				setUser(null);
+			}
 		});
-		return unsubscribe;
-	}, []);
+		return unsubscribe?.();
+	}, [user]);
 
-	return { user, isLoading };
+	return { user };
 }
 
 export default useUser;

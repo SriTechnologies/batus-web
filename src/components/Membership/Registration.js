@@ -12,34 +12,29 @@ import Step4 from './Registration/step4/Step4';
 import Step5 from './Registration/step5/Steps5';
 import Step6 from './Registration/step6/Steps6';
 import { RegistrationData } from './Registration/model/RegistrationDataModel'
-import { useEffect } from "react";
-import useUser from "../../hooks/useUser";
+import UseToken from '../../hooks/useToken';
 
 const steps = ['Setup Credentials', 'Member Details', 'Gotra Details', 'Family Details', 'Contact Details', 'Liability agreement'];
 
-export default function HorizontalNonLinearStepper() {
-	const { user } = useUser();
-	const [authHeaders, setAuthHeaders] = React.useState(null);
-
-	useEffect(() => {
-		const checkUserToken = async () => {
-			const token = user && await user.getIdToken();
-			console.log('user token: ' + token);
-			const headers = token ? { 
-				authtoken: token
-			} : null;
-			if (headers) {
-				setAuthHeaders(headers);
-			}
-		}
-
-		checkUserToken();
-
-	},[user, setAuthHeaders]);
-
+export default function Registration (props) {
 	const [activeStep, setActiveStep] = React.useState(0);
 	const [completed, setCompleted] = React.useState({});
 	const [registrationData, setRegistrationData] = React.useState(new RegistrationData());
+
+	const [apiAuthHeader, setAPIAuthHeader] = React.useState({});
+	const token = UseToken();
+
+	React.useEffect(() => {
+		console.log('>>>>> Registration Page: UseEffect');
+		if (token) {
+			console.log('user token: ' + token);
+			const headers = token !== null ? { 
+				authtoken: token
+			} : {};
+			setAPIAuthHeader(headers);
+		}
+		console.log('<<<<<< Registration Page: UseEffect');
+	}, [token]);
 
 	const totalSteps = () => {
 		return steps.length;
@@ -158,7 +153,7 @@ export default function HorizontalNonLinearStepper() {
 					handleComplete={handleComplete}
 					handleNext={handleNext}
 					handleBack={handleBack}
-					authHeaders={authHeaders} />;
+					authHeaders={apiAuthHeader} />;
 			default:
 				throw new Error("Unknow step");
 		}
