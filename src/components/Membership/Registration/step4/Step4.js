@@ -21,13 +21,13 @@ const Step4 = ({  registrationData, setRegistrationData, steps, activeStep, comp
 	};
 
 	const handleChildCount = (event) => {
-		console.log("Children count: " + event.target.value);
+		// console.log("Children count: " + event.target.value);
 		setChildCount(event.target.value)
 	}
 
 	const onSubmit = data => {
-		console.log(JSON.stringify(data, null, 2));
-		console.log("Registration Data: " + JSON.stringify(registrationData, null, 2));
+		// console.log(JSON.stringify(data, null, 2));
+		// console.log("Registration Data: " + JSON.stringify(registrationData, null, 2));
 		if (maritalStatusValue === 2) {
 			const regData = registrationData;
 			regData.spouse_firstname = data.s_firstname;

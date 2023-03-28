@@ -20,8 +20,8 @@ const Step2 = ({ registrationData, setRegistrationData, steps, activeStep, compl
 	const [dob_value, setDOBValue] = React.useState(null);
 
 	const onSubmit = data => {
-		console.log(JSON.stringify(data, null, 2));
-		console.log("Registration Data: " + JSON.stringify(registrationData, null, 2));
+		// console.log(JSON.stringify(data, null, 2));
+		// console.log("Registration Data: " + JSON.stringify(registrationData, null, 2));
 		const regData = registrationData;
 		regData.mem_firstname = data.firstname;
 		regData.mem_middlename = data.middlename;

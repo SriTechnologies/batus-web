@@ -27,7 +27,7 @@ import {AuthProvider} from './AuthContext';
 class BATApp extends React.Component {
 /*	
 	constructor(props) {
-		console.log("Constructor >>>>>");
+		// console.log("Constructor >>>>>");
 		super(props);
 		this.state = {
 			authUser: null,
@@ -35,23 +35,23 @@ class BATApp extends React.Component {
 			authHeaders: null,
 			isLoading: true,
 		}
-		console.log("Constructor <<<<<<");
+		// console.log("Constructor <<<<<<");
 	}
 
 	componentDidMount = async () => {
-		console.log("compnent did mount >>>>>");
+		// console.log("compnent did mount >>>>>");
 		this.listener = this.props.firebase.auth.onAuthStateChanged( async (currentUser) => {
 			if (currentUser !== null) {
 				try {
 					this.setState({ authUser: currentUser });
-					console.log("currentUser: " + currentUser);
+					// console.log("currentUser: " + currentUser);
 					const token = await currentUser.getIdToken(true);
-					console.log("User Token: " + token);
+					// console.log("User Token: " + token);
 					this.setState({ authToken: token });
 					const headers = token ? {
 						authtoken: token
 					} : null;
-					console.log("AuthHeaders: " + JSON.stringify(headers));
+					// console.log("AuthHeaders: " + JSON.stringify(headers));
 					if (headers) {
 						this.setState({ authHeaders: headers });
 					}
@@ -59,7 +59,7 @@ class BATApp extends React.Component {
 						this.setState({ isLoading: false });
 					}
 				} catch (error) {
-					console.log(error);
+					// console.log(error);
 				}
 			} else {
 				this.setState({ authUser: null });
@@ -67,7 +67,7 @@ class BATApp extends React.Component {
 				this.setState({ authHeaders: null });
 			}
 		});
-		console.log("compnent did mount <<<<<<");
+		// console.log("compnent did mount <<<<<<");
 	}
 
 	componentWillUnmount() {
@@ -76,11 +76,11 @@ class BATApp extends React.Component {
 */
 
 	render() {
-		// console.log("render >>>>>");
+		// // console.log("render >>>>>");
 		// if (this.state.isLoading === true) {
 		// 	return null;
 		// }
-		// console.log("Actual render >>>>>");
+		// // console.log("Actual render >>>>>");
 		return (
 			<div>
 				<Router>

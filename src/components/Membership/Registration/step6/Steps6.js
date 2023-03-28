@@ -10,6 +10,7 @@ import dayjs from 'dayjs';
 import DropIn from "braintree-web-drop-in-react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import UseToken from '../../../../hooks/useToken';
 
 const Step6 = ({ registrationData, setRegistrationData, steps, activeStep, completed, completedSteps, totalSteps, handleComplete, handleNext, handleBack, authHeaders, ...props }) => {
 	const {
@@ -27,17 +28,9 @@ const Step6 = ({ registrationData, setRegistrationData, steps, activeStep, compl
 	const [openLiabilityDialog, setOpenLiabilityDialog] = React.useState(false);
 	const [scroll, setScroll] = React.useState('paper');
 	const navi = useNavigate();
-
-	React.useEffect(() => {
-		const getToken = async () => {
-			console.log("Auth Headers " + JSON.stringify(authHeaders));
-			const token = await axios.get(`${process.env.REACT_APP_BAT_SERVER_HOST}/api/generatetoken`, {headers: authHeaders})
-			console.log("BT Token retrieved from server " + JSON.stringify(token.data));
-			setClientToken(token.data);
-		};
-		getToken();
-	}, [authHeaders, setClientToken]);
-
+	const token = UseToken();
+	// console.log('===== Step6: token:' + JSON.stringify(token));
+	
 	React.useEffect(() => {
 		if (openLiabilityDialog) {
 			const { current: descriptionElement } = descriptionElementRef;
@@ -49,9 +42,34 @@ const Step6 = ({ registrationData, setRegistrationData, steps, activeStep, compl
 
 	const [today, setToday] = React.useState(dayjs());
 
+	React.useEffect(() => {
+		// console.log('>>>>> Registration Page: UseEffect');
+		async function initialize() {
+			if (token) {
+					// console.log('user token: ' + token);
+					const headers = token !== null ? { 
+						authtoken: token
+					} : {};
+					// console.log('API Headers: ' + JSON.stringify(headers));
+					
+				}
+				// const res = await axios.get(`${process.env.REACT_APP_BAT_SERVER_HOST}/api/heartbeat`, { headers })
+		}
+		// console.log('<<<<<< Registration Page: UseEffect');
+		initialize();
+	}, [token]);
+
+
+	const getBTToken = async () => {
+		// console.log("Auth Headers " + JSON.stringify(authHeaders));
+		const btAPIToken = await axios.get(`${process.env.REACT_APP_BAT_SERVER_HOST}/api/generatetoken`, {headers: authHeaders})
+		// console.log("BT Token retrieved from server " + JSON.stringify(btAPIToken.data));
+		setClientToken(btAPIToken.data);
+	};
+
 	const onSubmit = data => {
-		console.log(JSON.stringify(data, null, 2));
-		console.log("Registration Data: " + JSON.stringify(registrationData, null, 2));
+		// console.log(JSON.stringify(data, null, 2));
+		// console.log("Registration Data: " + JSON.stringify(registrationData, null, 2));
 		handleComplete();
 	};
 
@@ -73,13 +91,13 @@ const Step6 = ({ registrationData, setRegistrationData, steps, activeStep, compl
 			.then((response) => {
 				const {transaction, success} = response.data;
 				if (response.status === 200 && success && transaction.id) {
-					console.log("Payment Success - Transaction ID: " + transaction.id);
+					// console.log("Payment Success - Transaction ID: " + transaction.id);
 					navi(
 						'/paymentSuccess',
 						{state: { tranStatus: " SUCCESS, Transaction ID: " + transaction.id }}
 					);
 				} else {
-					console.log("Payment failed status: " + transaction.status);
+					// console.log("Payment failed status: " + transaction.status);
 					navi(
 						'/paymentFailure',
 						{state: { tranStatus:  transaction.status }},
@@ -87,7 +105,7 @@ const Step6 = ({ registrationData, setRegistrationData, steps, activeStep, compl
 				}
 			})
 			.catch((error) => {
-				console.log("Payment Response error: " + error);
+				// console.log("Payment Response error: " + error);
 				navi(
 					'/paymentFailure',
 					{state: { tranStatus:  error }},
@@ -189,6 +207,9 @@ const Step6 = ({ registrationData, setRegistrationData, steps, activeStep, compl
 	};
 
 	function BodyContent() {
+		if (!clientToken) {
+			getBTToken();
+		}
 		return (
 			<Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'block' } }}>
 				<Typography variant="h6" align="center">

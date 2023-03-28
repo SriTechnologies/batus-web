@@ -1,23 +1,25 @@
 import { useState, useEffect } from "react"
-import { onAuthStateChanged } from "firebase/auth";
+import { getAuth } from "firebase/auth";
+import firebase from "../config/firebaseApp";
 
 const useUser = () => {
 	const [user, setUser] =  useState( () =>
 		JSON.parse(localStorage.getItem('authUser') || '{}')
 	);
+	const auth = getAuth(firebase);
 
 	useEffect( () => {
-		const unsubscribe = onAuthStateChanged((authUser) => {
+		const unsubscribe = auth.onAuthStateChanged((authUser) => {
 			if (authUser) {
 				localStorage.setItem('authUser', JSON.stringify(authUser));
-				setUser(user);
+				setUser(authUser);
 			} else {
 				localStorage.removeItem('authUser');
 				setUser(null);
 			}
 		});
 		return unsubscribe?.();
-	}, [user]);
+	}, [user, auth]);
 
 	return { user };
 }

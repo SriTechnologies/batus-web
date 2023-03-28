@@ -1,5 +1,4 @@
-import { initializeApp } from "firebase/app";
-import { getAuth, initializeAuth, debugErrorMap, browserLocalPersistence } from "firebase/auth";
+import { initializeApp } from 'firebase/app';
 
 const firebaseConfig = {
 	apiKey: process.env.REACT_APP_FB_API_KEY,
@@ -11,10 +10,12 @@ const firebaseConfig = {
 	measurementId: process.env.REACT_APP_FB_MEASUREMENT_ID
 };
 
-const app = initializeApp(firebaseConfig);
+const firebase = initializeApp(firebaseConfig);
 
-// gives us an auth instance
-export const auth = getAuth(app);
+// export const auth = getAuth(app);
+// // console.log("Fire Auth objec: " + JSON.stringify(auth));
+
 // export const auth = initializeAuth(app, {errorMap: debugErrorMap, persistence: browserLocalPersistence, popupRedirectResolver: undefined });
 // in order to use this auth instance elsewhere
-export default app;
+
+export default firebase;

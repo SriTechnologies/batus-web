@@ -14,8 +14,8 @@ const Step5 = ({ registrationData, setRegistrationData, steps, activeStep, compl
 	});
 
 	const onSubmit = data => {
-		console.log(JSON.stringify(data, null, 2));
-		console.log("Registration Data: " + JSON.stringify(registrationData, null, 2));
+		// console.log(JSON.stringify(data, null, 2));
+		// console.log("Registration Data: " + JSON.stringify(registrationData, null, 2));
 		handleNext();
 	};
 

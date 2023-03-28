@@ -9,8 +9,8 @@ export default function BoxedMenu(){
 	const anchorRefs = React.useRef([]);
 	
 	const openMenu = (event, index, len) => {
-		console.log("Menu index: ", index);
-		console.log("AnchorRefs len: ", anchorRefs.current.length);
+		// console.log("Menu index: ", index);
+		// console.log("AnchorRefs len: ", anchorRefs.current.length);
 		if (len > 0) {
 			setOpen((prevOpen) => !prevOpen);
 			if (event.target !== anchorRef.target) {

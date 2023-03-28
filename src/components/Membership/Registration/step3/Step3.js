@@ -33,7 +33,7 @@ const Step3 = ({ registrationData, setRegistrationData, steps, activeStep, compl
 	const [rishis, setRishis] = React.useState([]);
 
 	const handleGotraChange = (event, index) => {
-		console.log("Selected Gotra: " + event.target.value);
+		// console.log("Selected Gotra: " + event.target.value);
 		setSelectedGotra(event.target.value);
 	};
 
@@ -41,44 +41,44 @@ const Step3 = ({ registrationData, setRegistrationData, steps, activeStep, compl
 		// const updatedPravaktas = [...pravaktas];
 		// updatedPravaktas[index].name = event.target.value;
 		// setPravaktas(updatedPravaktas);
-		console.log("Selected Pravakta: " + event.target.value);
+		// console.log("Selected Pravakta: " + event.target.value);
 		setPravaktaIndex(event.target.value);
 		setPravaktaSelected(true);
 		// add the selected Pravakta to the Rishi list
 		const updatedRishis = [...rishis];
 		updatedRishis[index] = pravaktas[event.target.value].name;
 		setRishis(updatedRishis);
-		console.log("New Rishis: " + updatedRishis);
+		// console.log("New Rishis: " + updatedRishis);
 	};
 
 	const handleGanaChange = (event, index) => {
 		// const updatedPravaktas = [...pravaktas];
 		// updatedPravaktas[pIndex].ganas[gIndex].name = event.target.value;
 		// setPravaktas(updatedPravaktas);
-		console.log("Selected Gana: " + event.target.value);
+		// console.log("Selected Gana: " + event.target.value);
 		setGanaIndex(event.target.value);
 		setGanaSelected(true);
 		// add the selected Gana to the Rishi list
 		const updatedRishis = [...rishis];
 		updatedRishis[index] = pravaktas[pravaktaIndex].ganas[event.target.value].name;
 		setRishis(updatedRishis);
-		console.log("New Rishis: " + updatedRishis);
+		// console.log("New Rishis: " + updatedRishis);
 	};
 
 	const handleRishiChange = (event, index) => {
 		const updatedRishis = [...rishis];
 		updatedRishis[index + 2] = event.target.value;
 		setRishis(updatedRishis);
-		console.log("New Rishis: " + updatedRishis);
+		// console.log("New Rishis: " + updatedRishis);
 	}
 
 	const handleRishiCountChange = (event) => {
-		console.log("Rishi count: " + event.target.value);
+		// console.log("Rishi count: " + event.target.value);
 		setError(false);
 		// setHelperText('Number of Rishis: ' + event.target.value);
 		setRishiCount(event.target.value);
 		if (Number(event.target.value) === Number(0)) {
-			console.log("Setting the pravakta & gana to false!!!");
+			// console.log("Setting the pravakta & gana to false!!!");
 			resetForm();
 		} else {
 			// if 
@@ -255,8 +255,8 @@ const Step3 = ({ registrationData, setRegistrationData, steps, activeStep, compl
 	};
 
 	const onSubmit = data => {
-		console.log(JSON.stringify(data, null, 2));
-		console.log("Registration Data: " + JSON.stringify(registrationData, null, 2));
+		// console.log(JSON.stringify(data, null, 2));
+		// console.log("Registration Data: " + JSON.stringify(registrationData, null, 2));
 		const regData = registrationData;
 		if (selectedGotra == "Other") {
 			regData.gotra = data.other_gotra;

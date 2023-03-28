@@ -23,17 +23,23 @@ export default function Registration (props) {
 
 	const [apiAuthHeader, setAPIAuthHeader] = React.useState({});
 	const token = UseToken();
+	// console.log('===== Registration: token:' + JSON.stringify(token));
 
 	React.useEffect(() => {
-		console.log('>>>>> Registration Page: UseEffect');
-		if (token) {
-			console.log('user token: ' + token);
-			const headers = token !== null ? { 
-				authtoken: token
-			} : {};
-			setAPIAuthHeader(headers);
+		// console.log('>>>>> Registration Page: UseEffect');
+		async function initialize() {
+			if (token) {
+					// console.log('user token: ' + token);
+					const headers = token !== null ? { 
+						authtoken: token
+					} : {};
+					// console.log('API Headers: ' + JSON.stringify(headers));
+					setAPIAuthHeader(headers);
+				}
+				// const res = await axios.get(`${process.env.REACT_APP_BAT_SERVER_HOST}/api/heartbeat`, { headers })
 		}
-		console.log('<<<<<< Registration Page: UseEffect');
+		// console.log('<<<<<< Registration Page: UseEffect');
+		initialize();
 	}, [token]);
 
 	const totalSteps = () => {
@@ -59,9 +65,9 @@ export default function Registration (props) {
 				// find the first step that has been completed
 				steps.findIndex((step, i) => !(i in completed))
 				: activeStep + 1;
-		console.log("Total Step: " + steps.length);
-		console.log("Active Step: " + activeStep);
-		console.log("Next Active Step: " + newActiveStep);
+		// console.log("Total Step: " + steps.length);
+		// console.log("Active Step: " + activeStep);
+		// console.log("Next Active Step: " + newActiveStep);
 		setActiveStep(newActiveStep);
 	};
 
