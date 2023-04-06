@@ -28,6 +28,7 @@ export const RegistrationData = (
 	mobilephone = "",
 	landline = "",
 	tncAccepted = false,
+	transId = "",
 ) => {
 	return {
 		referredBy: referredBy,
@@ -56,5 +57,6 @@ export const RegistrationData = (
 		children: children,
 		mobilephone: mobilephone,
 		landline: landline,
+		transId: transId,
 	}
 }

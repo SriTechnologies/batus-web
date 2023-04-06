@@ -20,7 +20,7 @@ export default function Registration (props) {
 	const [activeStep, setActiveStep] = React.useState(0);
 	const [completed, setCompleted] = React.useState({});
 	const [registrationData, setRegistrationData] = React.useState(new RegistrationData());
-
+	const [transId, setTransId] =  React.useState('');
 	const [apiAuthHeader, setAPIAuthHeader] = React.useState({});
 	const token = UseToken();
 	// console.log('===== Registration: token:' + JSON.stringify(token));
@@ -159,7 +159,8 @@ export default function Registration (props) {
 					handleComplete={handleComplete}
 					handleNext={handleNext}
 					handleBack={handleBack}
-					authHeaders={apiAuthHeader} />;
+					authHeaders={apiAuthHeader}
+					setTransId={setTransId} />;
 			default:
 				throw new Error("Unknow step");
 		}

@@ -24,7 +24,7 @@ const PaymentSuccess = (props) => {
 						<Grid container spacing={10} justifyContent={'center'}>
 							<Grid item>
 								<Typography variant="title" align="center">
-									* Please Note that charges on the credit card will appear as <b>batus.org</b>
+									* Please Note that charges on the credit card will appear as Payment to <b>batus.org</b>
 								</Typography>
 							</Grid>
 						</Grid>

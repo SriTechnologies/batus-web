@@ -12,7 +12,7 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import UseToken from '../../../../hooks/useToken';
 
-const Step6 = ({ registrationData, setRegistrationData, steps, activeStep, completed, completedSteps, totalSteps, handleComplete, handleNext, handleBack, authHeaders, ...props }) => {
+const Step6 = ({ registrationData, setRegistrationData, steps, activeStep, completed, completedSteps, totalSteps, handleComplete, handleNext, handleBack, authHeaders, setTransId, ...props }) => {
 	const {
 		register,
 		control,
@@ -30,7 +30,7 @@ const Step6 = ({ registrationData, setRegistrationData, steps, activeStep, compl
 	const navi = useNavigate();
 	const token = UseToken();
 	// console.log('===== Step6: token:' + JSON.stringify(token));
-	
+
 	React.useEffect(() => {
 		if (openLiabilityDialog) {
 			const { current: descriptionElement } = descriptionElementRef;
@@ -70,6 +70,11 @@ const Step6 = ({ registrationData, setRegistrationData, steps, activeStep, compl
 	const onSubmit = data => {
 		// console.log(JSON.stringify(data, null, 2));
 		// console.log("Registration Data: " + JSON.stringify(registrationData, null, 2));
+		const regData = registrationData;
+		regData.transId = transId
+
+		setRegistrationData(regData);
+
 		handleComplete();
 	};
 
@@ -92,10 +97,11 @@ const Step6 = ({ registrationData, setRegistrationData, steps, activeStep, compl
 				const {transaction, success} = response.data;
 				if (response.status === 200 && success && transaction.id) {
 					// console.log("Payment Success - Transaction ID: " + transaction.id);
-					navi(
-						'/paymentSuccess',
-						{state: { tranStatus: " SUCCESS, Transaction ID: " + transaction.id }}
-					);
+					setTransId(transaction.id)
+					// navi(
+					// 	'/paymentSuccess',
+					// 	{state: { tranStatus: " SUCCESS, Transaction ID: " + transaction.id }}
+					// );
 				} else {
 					// console.log("Payment failed status: " + transaction.status);
 					navi(
