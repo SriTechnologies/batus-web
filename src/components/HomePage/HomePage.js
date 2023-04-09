@@ -1,10 +1,12 @@
 import React from 'react';
-import axios from "axios";
+// import axios from "axios";
 import { useEffect } from "react";
 import UseToken from '../../hooks/useToken';
+import { Paper, Typography } from '@mui/material';
+import { Box } from '@mui/system';
 // import { useAuth } from '../../AuthContext';
-import useUser from '../../hooks/useUser';
-import { getIdToken } from 'firebase/auth';
+// import useUser from '../../hooks/useUser';
+// import { getIdToken } from 'firebase/auth';
 
 const HomePage = () => {
 	// const { user } = useUser();
@@ -47,7 +49,24 @@ const HomePage = () => {
 	}, [token]);
 
 	return (
-		<h1>Home page</h1>
+		<center>
+			<h1>Welcome the Brahmin Association of Texas</h1>
+			<Box
+				sx={{
+					display: "flex",
+					flexWrap: "wrap",
+					margin: "auto",
+					width: "fit-content",
+				}}
+			>
+				<Paper elevation={3} 
+					variant="outlined">
+					<Typography>
+						
+					</Typography>
+				</Paper>
+			</Box>
+		</center>
 	);
 }
 

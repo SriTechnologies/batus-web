@@ -5,27 +5,17 @@ import BATApp from './App';
 import reportWebVitals from './reportWebVitals';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import { CssBaseline } from '@mui/material';
-// import AuthContext  from './AuthContext';
-// import FirebaseApp from './FirebaseApp';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
-const theme = createTheme({
+const BATTheme = createTheme({
 	palette: {
-		mode: 'dark',
+		mode: 'light',
 	},
 	typography: {
 		fontFamily: [
-			'-apple-system',
-			'BlinkMacSystemFont',
-			'"Segoe UI"',
 			'Roboto',
-			'"Helvetica Neue"',
-			'Arial',
 			'sans-serif',
-			'"Apple Color Emoji"',
-			'"Segoe UI Emoji"',
-			'"Segoe UI Symbol"',
 		].join(','),
 	},
 	spacing: (factor) => `${0.25 * factor}rem`, // (Bootstrap strategy)
@@ -126,8 +116,7 @@ const theme = createTheme({
 
 root.render(
 	<React.StrictMode>
-		<ThemeProvider theme={theme}>
-
+		<ThemeProvider theme={BATTheme}>
 			<CssBaseline />
 			{/* <AuthContext.Provider value={new FirebaseApp()}> */}
 				<BATApp />

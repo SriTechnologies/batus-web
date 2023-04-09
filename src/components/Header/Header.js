@@ -26,7 +26,7 @@ export default function Header() {
 						<img src={banner_left} alt='BAT' width="80" height="90" />
 					</Box>
 					<Box sx={{ flexGrow: 1 }}>
-						<Typography variant="h4">Welcome to Brahmin Association of Texas (BAT)</Typography>
+						<Typography variant="h3">Brahmin Association of Texas (BAT)</Typography>
 					</Box>
 					<Box>
 						<img src={banner_right} alt='BAT' width="60" height="100" />

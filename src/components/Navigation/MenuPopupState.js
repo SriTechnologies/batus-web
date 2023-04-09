@@ -15,7 +15,7 @@ export default function MenuPopupState({item, index}) {
 				{...bindTrigger(popupState)}
 				component={item.title === 'Home' ? Link : ''}
 				to={item.title === 'Home' ? item.link : ''}
-				sx={{ color: 'white'}}
+				sx={{ color: 'black'}}
 				size='large'
 			>
 				{item.title}

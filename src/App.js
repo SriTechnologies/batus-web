@@ -21,66 +21,10 @@ import LoginPage from './components/Login/Login';
 import Header from './components/Header/Header';
 import PaymentSuccess from "./components/Membership/Registration/step6/PaymentSuccess";
 import PaymentFailure from "./components/Membership/Registration/step6/PaymentFailure";
-// import { FirebaseContext } from './AuthContext';
 import {AuthProvider} from './AuthContext';
 
 class BATApp extends React.Component {
-/*	
-	constructor(props) {
-		// console.log("Constructor >>>>>");
-		super(props);
-		this.state = {
-			authUser: null,
-			authToken: null,
-			authHeaders: null,
-			isLoading: true,
-		}
-		// console.log("Constructor <<<<<<");
-	}
-
-	componentDidMount = async () => {
-		// console.log("compnent did mount >>>>>");
-		this.listener = this.props.firebase.auth.onAuthStateChanged( async (currentUser) => {
-			if (currentUser !== null) {
-				try {
-					this.setState({ authUser: currentUser });
-					// console.log("currentUser: " + currentUser);
-					const token = await currentUser.getIdToken(true);
-					// console.log("User Token: " + token);
-					this.setState({ authToken: token });
-					const headers = token ? {
-						authtoken: token
-					} : null;
-					// console.log("AuthHeaders: " + JSON.stringify(headers));
-					if (headers) {
-						this.setState({ authHeaders: headers });
-					}
-					if (this.state.isLoading === true) {
-						this.setState({ isLoading: false });
-					}
-				} catch (error) {
-					// console.log(error);
-				}
-			} else {
-				this.setState({ authUser: null });
-				this.setState({ authToken: null });
-				this.setState({ authHeaders: null });
-			}
-		});
-		// console.log("compnent did mount <<<<<<");
-	}
-
-	componentWillUnmount() {
-		this.listener();
-	}
-*/
-
 	render() {
-		// // console.log("render >>>>>");
-		// if (this.state.isLoading === true) {
-		// 	return null;
-		// }
-		// // console.log("Actual render >>>>>");
 		return (
 			<div>
 				<Router>

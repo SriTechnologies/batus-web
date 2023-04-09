@@ -98,10 +98,12 @@ function AppHeaderBar() {
 							display: { xs: 'block', md: 'none' },
 						}}
 					>
-						{pages.map((page) => (
-							<MenuItem key={page.title} onClick={handleCloseNavMenu}>
-								<Typography textAlign="center">{page.title}</Typography>
-							</MenuItem>
+					{pages.map((page, itemIndex) => (
+							<MenuUsingPopupState key={itemIndex} item={page} index={itemIndex} />
+
+							// <MenuItem key={page.title} onClick={handleCloseNavMenu}>
+							// 	<Typography textAlign="center">{page.title}</Typography>
+							// </MenuItem>
 						))}
 					</Menu>
 				</Box>
@@ -134,7 +136,7 @@ function AppHeaderBar() {
 					))}
 				</Box>
 			</Toolbar>
-			<Divider variant="middle" sx={{ width: '100%', color: "primary" }} />
+			<Divider sx={{ width: '100%', color: "primary" }} />
 		</div>
 	);
 }

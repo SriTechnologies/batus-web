@@ -71,7 +71,7 @@ const Step6 = ({ registrationData, setRegistrationData, steps, activeStep, compl
 		// console.log(JSON.stringify(data, null, 2));
 		// console.log("Registration Data: " + JSON.stringify(registrationData, null, 2));
 		const regData = registrationData;
-		regData.transId = transId
+		// regData.transId = transId
 
 		setRegistrationData(regData);
 
