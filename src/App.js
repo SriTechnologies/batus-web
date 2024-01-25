@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { BrowserRouter as Router, useNavigate, Routes, Route } from 'react-router-dom';
 import './App.css';
 import HomePage from './components/HomePage/HomePage';
 import AboutBat from './components/AboutUs/AboutBat';
@@ -22,6 +22,8 @@ import Header from './components/Header/Header';
 import PaymentSuccess from "./components/Membership/Registration/step6/PaymentSuccess";
 import PaymentFailure from "./components/Membership/Registration/step6/PaymentFailure";
 import {AuthProvider} from './AuthContext';
+import { Dialog } from '@mui/material';
+
 
 class BATApp extends React.Component {
 	render() {
@@ -48,8 +50,12 @@ class BATApp extends React.Component {
 							<Route path="/contactus" element={<ContactUs />} />
 							<Route path="/login" element={<LoginPage />} />
 							<Route path="/createaccount" element={<CreateAccount />} />
-							<Route path="/paymentSuccess" element={<PaymentSuccess />} />
-							<Route path="/paymentFailure" element={<PaymentFailure />} />
+							<Route path="/paymentSuccess" element={(
+									<PaymentSuccess />
+							)} />
+							<Route path="/paymentFailure" element={(
+									<PaymentFailure />
+							)} />
 							<Route path="*" element={<ErrorPage />} />
 						</Routes>
 					</div>

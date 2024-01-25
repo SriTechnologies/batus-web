@@ -12,7 +12,7 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import UseToken from '../../../../hooks/useToken';
 
-const Step6 = ({ registrationData, setRegistrationData, steps, activeStep, completed, completedSteps, totalSteps, handleComplete, handleNext, handleBack, authHeaders, setTransId, ...props }) => {
+const Step6 = ({ registrationData, setRegistrationData, steps, activeStep, completed, completedSteps, totalSteps, handleComplete, handleNext, handleBack, authHeaders, setTransactionData, ...props }) => {
 	const {
 		register,
 		control,
@@ -27,8 +27,12 @@ const Step6 = ({ registrationData, setRegistrationData, steps, activeStep, compl
 	const [instance, setInstance] = React.useState();
 	const [openLiabilityDialog, setOpenLiabilityDialog] = React.useState(false);
 	const [scroll, setScroll] = React.useState('paper');
+	const [paymentComplete, setPaymentComplete] = React.useState(false);
 	const navi = useNavigate();
 	const token = UseToken();
+	const [transId, setTransId] =  React.useState('');
+	const [transData, setTransData] = React.useState('');
+
 	// console.log('===== Step6: token:' + JSON.stringify(token));
 
 	React.useEffect(() => {
@@ -71,10 +75,9 @@ const Step6 = ({ registrationData, setRegistrationData, steps, activeStep, compl
 		// console.log(JSON.stringify(data, null, 2));
 		// console.log("Registration Data: " + JSON.stringify(registrationData, null, 2));
 		const regData = registrationData;
-		// regData.transId = transId
-
+		regData.transId = transId;
+		regData.transData = transData;
 		setRegistrationData(regData);
-
 		handleComplete();
 	};
 
@@ -97,10 +100,12 @@ const Step6 = ({ registrationData, setRegistrationData, steps, activeStep, compl
 				const {transaction, success} = response.data;
 				if (response.status === 200 && success && transaction.id) {
 					// console.log("Payment Success - Transaction ID: " + transaction.id);
-					setTransId(transaction.id)
+					setTransId(transaction.id);
+					setTransData(transaction);
+					setPaymentComplete(true);
 					// navi(
 					// 	'/paymentSuccess',
-					// 	{state: { tranStatus: " SUCCESS, Transaction ID: " + transaction.id }}
+					// 	{state: { tranStatus: " Payment Success, Transaction ID: " + transaction.id }}
 					// );
 				} else {
 					// console.log("Payment failed status: " + transaction.status);
@@ -203,7 +208,7 @@ const Step6 = ({ registrationData, setRegistrationData, steps, activeStep, compl
 				<Box sx={{ flex: '1 1 auto' }} />
 				<Button
 					onClick={handleSubmit(onSubmit)}
-					disabled={!isDirty || !isValid}
+					disabled={!isDirty || !isValid || !paymentComplete}
 					sx={{ mr: 1 }}
 				>
 					Complete Registration
@@ -325,6 +330,7 @@ const Step6 = ({ registrationData, setRegistrationData, steps, activeStep, compl
 											onInstance={(instance) => setInstance(instance)}
 										/>
 										<Button
+											disabled={paymentComplete}
 											onClick={(e) => handleFeePayment(e)}>
 											Pay Membership Fees
 										</Button>
