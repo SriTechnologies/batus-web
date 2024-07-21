@@ -14,10 +14,10 @@ const pages = [
 		title: 'Home', link: '/', submenu: []
 	},
 	{
-		title: 'Committee', link: '', submenu: [
-			{ title: 'Committee', link: '/committee' },
-			{ title: 'Board Members', link: '/boardmembers' },
-			{ title: 'Core Committee', link: '/corecommittee' }
+		title: 'Boards', link: '', submenu: [
+			{ title: 'Governing Board', link: '/corecommittee' },
+			{ title: 'Executive Board', link: '/committee' },
+			{ title: 'Events Board', link: '/boardmembers' },
 		]
 	},
 	{
@@ -29,9 +29,15 @@ const pages = [
 	},
 	{
 		title: 'Membership', link: '', submenu: [
+			{ title: 'Membership Benefits', link: '/membership' },
 			{ title: 'Membership', link: '/membership' },
 			{ title: 'Become a Member', link: '/registration' },
-			{ title: 'Membership Benefits', link: '/membership' },
+		]
+	},
+	{
+		title: 'Matrimony', link: '', submenu: [
+			{ title: 'Benefits', link: '/matrimony' },
+			{ title: 'Enrollment', link: '/matrimonyenroll' },
 		]
 	},
 	{
@@ -98,9 +104,8 @@ function AppHeaderBar() {
 							display: { xs: 'block', md: 'none' },
 						}}
 					>
-					{pages.map((page, itemIndex) => (
+						{pages.map((page, itemIndex) => (
 							<MenuUsingPopupState key={itemIndex} item={page} index={itemIndex} />
-
 							// <MenuItem key={page.title} onClick={handleCloseNavMenu}>
 							// 	<Typography textAlign="center">{page.title}</Typography>
 							// </MenuItem>

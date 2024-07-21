@@ -3,13 +3,18 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@emotion/react": "^11.10.6",
-    "@emotion/styled": "^11.10.6",
+    "@emotion/react": "^11.11.4",
+    "@emotion/styled": "^11.11.5",
+    "@fontsource/inter": "^5.0.16",
     "@fontsource/roboto": "^4.5.8",
+    "@headlessui/react": "^2.1.2",
+    "@heroicons/react": "^2.1.5",
     "@hookform/resolvers": "^2.9.11",
-    "@mui/icons-material": "^5.11.9",
-    "@mui/material": "^5.11.10",
-    "@mui/styled-engine-sc": "^5.11.9",
+    "@mui/base": "^5.0.0-beta.37",
+    "@mui/icons-material": "^5.16.1",
+    "@mui/joy": "^5.0.0-beta.27",
+    "@mui/material": "^5.16.1",
+    "@mui/styled-engine-sc": "^5.14.12",
     "@mui/system": "^5.11.9",
     "@mui/x-date-pickers": "^5.0.20",
     "@reduxjs/toolkit": "^1.9.3",
@@ -25,8 +30,10 @@
     "cors": "^2.8.5",
     "dayjs": "^1.11.7",
     "express": "^4.18.2",
-    "firebase": "^9.18.0",
-    "material-ui-popup-state": "^5.0.4",
+    "firebase": "^10.11.1",
+    "flowbite": "^2.4.1",
+    "flowbite-react": "^0.10.1",
+    "material-ui-popup-state": "^5.1.2",
     "moment": "^2.29.4",
     "mui": "^0.0.1",
     "pg": "^8.9.0",
@@ -42,15 +49,16 @@
     "sass": "^1.58.3",
     "sequelize": "^6.28.2",
     "serve": "^14.2.0",
-    "styled-components": "^5.3.6",
+    "styled-components": "^5.3.11",
+    "tailwind": "^4.0.0",
     "web-vitals": "^3.1.1",
     "yup": "^1.0.0"
   },
   "scripts": {
     "clean": "rimraf ./build/*",
     "start": "serve -s build",
-    "local": "react-scripts start",
-    "build": "react-scripts build",
+    "local": "NODE_OPTIONS=--openssl-legacy-provider react-scripts start",
+    "build": "NODE_OPTIONS=--openssl-legacy-provider react-scripts build",
     "build-env": "env-cmd -f .env npm run build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
@@ -74,7 +82,10 @@
     ]
   },
   "devDependencies": {
+    "autoprefixer": "^10.4.19",
     "env-cmd": "^10.1.0",
-    "gh-pages": "^5.0.0"
+    "gh-pages": "^5.0.0",
+    "postcss": "^8.4.39",
+    "tailwindcss": "^3.4.4"
   }
 }

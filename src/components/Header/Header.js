@@ -1,5 +1,6 @@
 import React from 'react';
-import "./Header.css"
+import "../../bat.css";
+import "./Header.css";
 import { Toolbar, Typography, Box, AppBar } from '@mui/material';
 import banner_left from '../../images/banner-left.png';
 import banner_right from '../../images/banner-right.png';
@@ -19,9 +20,10 @@ export default function Header() {
 	};
 
 	return (
-		<div>
+		<div class="grid grid-rows-2 place-content-stretch">
+			<div>
 			<AppBar style={bannerStyle}	position='sticky'>
-				<Toolbar className='header' sx={{ my: 2}}>
+				<Toolbar className='header'>
 					<Box>
 						<img src={banner_left} alt='BAT' width="80" height="90" />
 					</Box>
@@ -33,7 +35,10 @@ export default function Header() {
 					</Box>
 				</Toolbar>
 			</AppBar>
-			<AppHeaderBar />
+			</div>
+			<div>
+				<AppHeaderBar />
+			</div>
 		</div>
 	);
 }
