@@ -13,5 +13,5 @@ jobs:
       - uses: FirebaseExtended/action-hosting-deploy@v0
         with:
           repoToken: '${{ secrets.GITHUB_TOKEN }}'
-          firebaseServiceAccount: '${{ secrets.FIREBASE_SERVICE_ACCOUNT_BATUS_925AC }}'
-          projectId: batus-925ac
+          firebaseServiceAccount: '${{ secrets.FIREBASE_SERVICE_ACCOUNT_BATUS_WEB_SB_01 }}'
+          projectId: batus-web-sb-01
