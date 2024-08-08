@@ -1,6 +1,5 @@
 {
   "hosting": {
-    "site": "batus-web-dev",
     "public": "public",
     "ignore": [
       "firebase.json",
