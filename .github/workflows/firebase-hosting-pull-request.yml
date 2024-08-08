@@ -18,9 +18,9 @@ jobs:
               echo REACT_APP_FB_MEASUREMENT_ID=${{ secrets.REACT_APP_FB_MEASUREMENT_ID }} >> .env
               echo REACT_APP_BAT_SERVER_HOST=${{ secrets.REACT_APP_BAT_SERVER_HOST }} >> .env
     build_and_preview:
-    if: '${{ github.event.pull_request.head.repo.full_name == github.repository }}'
-    runs-on: ubuntu-latest
-    steps:
+      if: '${{ github.event.pull_request.head.repo.full_name == github.repository }}'
+      runs-on: ubuntu-latest
+      steps:
       - uses: actions/checkout@v2
       - run: npm ci && npm run build
       - uses: FirebaseExtended/action-hosting-deploy@v0
