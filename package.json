@@ -55,10 +55,11 @@
     "yup": "^1.0.0"
   },
   "scripts": {
-    "clean": "rimraf ./build/*",
+    "clean": "rm -rf build",
     "start": "serve -s build",
+    "create": "NODE_OPTIONS=--openssl-legacy-provider react-scripts build",
     "local": "NODE_OPTIONS=--openssl-legacy-provider react-scripts start",
-    "build": "NODE_OPTIONS=--openssl-legacy-provider react-scripts build",
+    "build": "npm run clean && npm run create",
     "build-env": "env-cmd -f .env npm run build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
@@ -76,6 +77,7 @@
     ]
   },
   "devDependencies": {
+    "@babel/plugin-proposal-private-property-in-object": "^7.21.11",
     "autoprefixer": "^10.4.19",
     "env-cmd": "^10.1.0",
     "gh-pages": "^5.0.0",
