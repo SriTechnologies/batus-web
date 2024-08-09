@@ -3,7 +3,12 @@
     "public": "build",
     "ignore": [
       "firebase.json",
-      "**/.*",
+      "**/.gcloudignore",
+      "**/.firebase/**",
+      "**/.github",
+      "**/public/",
+      "**/.gitignore",
+      "**/.env",
       "**/node_modules/**"
     ],
     "rewrites": [

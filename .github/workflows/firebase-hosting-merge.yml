@@ -7,10 +7,10 @@ name: Deploy to Firebase Hosting on merge
     branches:
       - main
 jobs:
-    build_and_deploy:
-      runs-on: ubuntu-latest
-
-      steps:
+  build_and_deploy:
+    runs-on: ubuntu-latest
+    
+    steps:
       - name: App Checkout
         uses: actions/checkout@v2
 
@@ -30,12 +30,12 @@ jobs:
             echo REACT_APP_BAT_SERVER_HOST=${{ secrets.REACT_APP_BAT_SERVER_HOST }} >> .env
 
       - name: Create App build
-        run: npm run build
+        run: cat .env && npm run build
 
       - name: Deploy the App
         uses: FirebaseExtended/action-hosting-deploy@v0
         with:
           repoToken: '${{ secrets.GITHUB_TOKEN }}'
-          firebaseServiceAccount: '${{ secrets.FIREBASE_SERVICE_ACCOUNT_BATUS_WEB_SB_01 }}'
+          firebaseServiceAccount: '${{ secrets.FIREBASE_SERVICE_ACCOUNT_BATUS_WEB_SB_03 }}'
           channelId: live
-          projectId: batus-web-sb-01
+          projectId: batus-web-sb-03
