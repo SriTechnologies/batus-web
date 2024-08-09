@@ -35,8 +35,8 @@ class BATApp extends React.Component {
 				<Router>
 					<AuthProvider>
 						<Header />
-						<div class="w-full flex flex-col sm:flex-row flex-wrap sm:flex-nowrap py-1 flex-grow">
-							<div class="w-fixed w-full flex-shrink flex-grow-0 px-2 ">
+						<div class="w-full flex flex-col sm:flex-row flex-wrap sm:flex-nowrap py-4 flex-grow">
+							<div class="w-fixed w-full flex-shrink flex-grow-0 px-4">
 								<div class="sticky top-0 p-2 bg-gray-100 rounded-xl w-full h-full">
 									<div class="bg-gray-100 rounded-xl mb-3 w-full">
 										<div class="max-w-7xl mx-auto py-8 px-4 sm:px-6 lg:py-12 lg:px-8 lg:flex lg:items-center lg:justify-between">
@@ -46,43 +46,43 @@ class BATApp extends React.Component {
 										</div>
 									</div>
 								</div>
-								<main role="main" class="w-full flex-grow pt-1 px-3">
-									<Routes>
-										<Route path="/" element={<HomePage />} />
-										<Route path="/aboutbat" element={<AboutBat />} />
-										<Route path="/batbylaws" element={<BatByLaws />} />
-										<Route path="/batmission" element={<BatMission />} />
-										<Route path="/committee" element={<Committee />} />
-										<Route path="/corecommittee" element={<CoreCommittee />} />
-										<Route path="/boardmembers" element={<BoardMembers />} />
-										<Route path="/events" element={<Events />} />
-										<Route path="/annualevents" element={<AnnualEvents />} />
-										<Route path="/monthlyevents" element={<MonthlyEvents />} />
-										<Route path="/membership" element={<Membership />} />
-										<Route path="/registration" element={<Registration />} />
-										<Route path="/matrimony" element={<MatrimonyBenefits />} />
-										<Route path="/matrimonyenroll" element={<MatrimonyEnroll />} />
-										<Route path="/volunteer" element={<Volunteer />} />
-										<Route path="/contactus" element={<ContactUs />} />
-										<Route path="/login" element={<LoginPage />} />
-										<Route path="/createaccount" element={<CreateAccount />} />
-										<Route path="/paymentSuccess" element={(
-											<PaymentSuccess />
-										)} />
-										<Route path="/paymentFailure" element={(
-											<PaymentFailure />
-										)} />
-										<Route path="*" element={<ErrorPage />} />
-									</Routes>
-								</main>
-								<div class="w-fixed w-full flex-shrink flex-grow-0 px-2">
-									<div class="flex sm:flex-col px-2">
-										<div class="bg-gray-50 rounded-xl border mb-3 w-full">
-											<div class="max-w-7xl mx-auto py-8 px-4 sm:px-6 lg:py-12 lg:px-8 lg:flex lg:items-center lg:justify-between">
-												<h2 class="text-3xl font-extrabold tracking-tight text-gray-900 sm:text-4xl">
-													<span class="block text-indigo-600">Made with Tailwind CSS!</span>
-												</h2>
-											</div>
+							</div>
+							<main role="main" class="w-full flex-grow pt-1 px-3">
+								<Routes>
+									<Route path="/" element={<HomePage />} />
+									<Route path="/aboutbat" element={<AboutBat />} />
+									<Route path="/batbylaws" element={<BatByLaws />} />
+									<Route path="/batmission" element={<BatMission />} />
+									<Route path="/committee" element={<Committee />} />
+									<Route path="/corecommittee" element={<CoreCommittee />} />
+									<Route path="/boardmembers" element={<BoardMembers />} />
+									<Route path="/events" element={<Events />} />
+									<Route path="/annualevents" element={<AnnualEvents />} />
+									<Route path="/monthlyevents" element={<MonthlyEvents />} />
+									<Route path="/membership" element={<Membership />} />
+									<Route path="/registration" element={<Registration />} />
+									<Route path="/matrimony" element={<MatrimonyBenefits />} />
+									<Route path="/matrimonyenroll" element={<MatrimonyEnroll />} />
+									<Route path="/volunteer" element={<Volunteer />} />
+									<Route path="/contactus" element={<ContactUs />} />
+									<Route path="/login" element={<LoginPage />} />
+									<Route path="/createaccount" element={<CreateAccount />} />
+									<Route path="/paymentSuccess" element={(
+										<PaymentSuccess />
+									)} />
+									<Route path="/paymentFailure" element={(
+										<PaymentFailure />
+									)} />
+									<Route path="*" element={<ErrorPage />} />
+								</Routes>
+							</main>
+							<div class="w-fixed w-full flex-shrink flex-grow-0 px-2">
+								<div class="flex sm:flex-col px-2">
+									<div class="bg-gray-50 rounded-xl border mb-3 w-full">
+										<div class="max-w-7xl mx-auto py-8 px-4 sm:px-6 lg:py-12 lg:px-8 lg:flex lg:items-center lg:justify-between">
+											<h2 class="text-3xl font-extrabold tracking-tight text-gray-900 sm:text-4xl">
+												<span class="block text-indigo-600">Made with Tailwind CSS!</span>
+											</h2>
 										</div>
 									</div>
 								</div>
